@@ -138,7 +138,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a51829b63adb24ac48d350dee60181002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any previously loaded plugins.  <a href="#a51829b63adb24ac48d350dee60181002">More...</a><br /></td></tr>
 <tr class="separator:a51829b63adb24ac48d350dee60181002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad473d38ba73d324c54224a32d604b3d4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ad473d38ba73d324c54224a32d604b3d4">scan</a> (self, paths, pathsEnvVar, entryPointName, disableEntryPointsEnvVar, disableEntryPoints, moduleHookName)</td></tr>
-<tr class="memdesc:ad473d38ba73d324c54224a32d604b3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths and/or entry points for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a supplied top-level variable.  <a href="#ad473d38ba73d324c54224a32d604b3d4">More...</a><br /></td></tr>
 <tr class="separator:ad473d38ba73d324c54224a32d604b3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a919fe77275c3810d42cc596d8ed9d062"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a919fe77275c3810d42cc596d8ed9d062">scan_paths</a> (self, paths, moduleHookName)</td></tr>
 <tr class="memdesc:a919fe77275c3810d42cc596d8ed9d062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a supplied top-level variable.  <a href="#a919fe77275c3810d42cc596d8ed9d062">More...</a><br /></td></tr>
@@ -355,20 +354,33 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Searches the supplied paths and/or entry points for modules that
+define a PythonPluginSystemPlugin through a supplied top-level
+variable.
 
-<p>Searches the supplied paths and/or entry points for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a supplied top-level variable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">paths</td><td><code>str</code> A list of paths to search, delimited by <code>os.pathsep</code>. Set to blank (or otherwise falsey) to use the environment variable given by <code>pathsEnvVar</code> instead.</td></tr>
-    <tr><td class="paramname">pathsEnvVar</td><td><code>str</code> The name of the environment variable that contains paths to search, formatted as given in <code>paths</code>. If <code>paths</code> is set then this environment variable is unused.</td></tr>
-    <tr><td class="paramname">entryPointName</td><td><code>str</code> The name of the entry point group to search for plugins.</td></tr>
-    <tr><td class="paramname">disableEntryPointsEnvVar</td><td><code>str</code> An environment variable that, if set, will disable scanning for entry point plugins, unless overridden by <code>disableEntryPoints</code>.</td></tr>
-    <tr><td class="paramname">disableEntryPoints</td><td><code>Optional[bool]</code> Set to <code>True</code> or <code>False</code> to force disabling or enabling of entry point plugins, respectively. Set to <code>None</code> to enable unless <code>disableEntryPointsEnvVar</code> is set.</td></tr>
-    <tr><td class="paramname">moduleHookName</td><td><code>str</code> The name of the top-level variable that contains the plugin class. </td></tr>
-  </table>
-  </dd>
-</dl>
+@param paths `str` A list of paths to search, delimited by
+`os.pathsep`. Set to blank (or otherwise falsey) to use the
+environment variable given by @p pathsEnvVar instead.
 
+@param pathsEnvVar `str` The name of the environment variable
+that contains paths to search, formatted as given in @p paths.
+If @p paths is set then this environment variable is unused.
+
+@param entryPointName `str` The name of the entry point group
+to search for plugins.
+
+@param disableEntryPointsEnvVar `str` An environment variable
+that, if set, will disable scanning for entry point plugins,
+unless overridden by @p disableEntryPoints.
+
+@param disableEntryPoints `Optional[bool]` Set to `True` or
+`False` to force disabling or enabling of entry point plugins,
+respectively. Set to `None` to enable unless @p
+disableEntryPointsEnvVar is set.
+
+@param moduleHookName `str` The name of the top-level variable
+that contains the plugin class.
+</pre> 
 </div>
 </div>
 <a class="anchor" id="aa6841fbcf6833b1ac4ff471ac8584c36"></a>
