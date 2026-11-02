@@ -1114,9 +1114,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
 
     @classmethod
     def __pager_elems_iter(cls, pager):
-        for page in cls.__pager_page_iter(pager):
-            for elem in page:
-                yield elem
+        yield from (elem for page in cls.__pager_page_iter(pager) for elem in page)
 
     @staticmethod
     def __pager_page_iter(pager):

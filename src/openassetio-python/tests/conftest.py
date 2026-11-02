@@ -18,6 +18,7 @@ Shared fixtures/code for pytest cases.
 """
 
 # pylint: disable=missing-function-docstring,redefined-outer-name
+# pylint: disable=too-many-positional-arguments
 
 import collections
 from unittest import mock

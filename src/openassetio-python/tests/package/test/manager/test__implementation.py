@@ -21,6 +21,7 @@ Unit tests for the _implementation module of the manager test harness.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=too-many-arguments,too-few-public-methods
 # pylint: disable=protected-access,unused-argument
+# pylint: disable=too-many-positional-arguments
 
 from unittest import mock
 from unittest.mock import Mock, call

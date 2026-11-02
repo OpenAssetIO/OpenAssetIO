@@ -61,7 +61,7 @@ class PythonPluginSystem(object):
         disableEntryPointsEnvVar,
         disableEntryPoints,
         moduleHookName,
-    ):
+    ):  # pylint: disable=too-many-positional-arguments
         """
         Searches the supplied paths and/or entry points for modules that
         define a PythonPluginSystemPlugin through a supplied top-level
