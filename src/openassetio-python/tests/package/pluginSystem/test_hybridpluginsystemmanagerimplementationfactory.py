@@ -29,6 +29,7 @@ from openassetio.trait import TraitsData
 # pylint: disable=invalid-name,redefined-outer-name,
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=too-many-public-methods
+# pylint: disable=too-many-positional-arguments
 
 
 from openassetio.hostApi import ManagerImplementationFactoryInterface

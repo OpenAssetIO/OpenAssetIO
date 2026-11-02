@@ -312,7 +312,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
             action(message)
             # We should never get here as action should raise an
             # exception either way to abort/fail the test
-            assert False
+            assert False  # pylint: disable=unreachable
         else:
             return [self._fixtures[name] for name in fixtureNames]
 

@@ -8,6 +8,7 @@ from unittest import mock
 
 # pylint: disable=missing-class-docstring,invalid-name,missing-function-docstring
 # pylint: disable=redefined-outer-name
+# pylint: disable=too-many-positional-arguments
 import pytest
 
 from openassetio import Context

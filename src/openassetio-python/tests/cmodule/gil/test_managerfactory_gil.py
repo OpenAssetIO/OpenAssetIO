@@ -21,6 +21,7 @@ methods release the GIL.
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
+# pylint: disable=too-many-positional-arguments
 from unittest import mock
 
 import pytest
