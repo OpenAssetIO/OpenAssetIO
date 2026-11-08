@@ -20,10 +20,10 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
 
 /**
  * A transport-level container for data exchange between a @ref
- * glossary_host "host" and a @ref manager.
+ * glossary_host "host" and a @ref glossary_manager.
  *
- * The @ref Specification system combines one or more @ref trait
- * "traits" into a @ref trait_set to classify concepts within the API.
+ * The @ref glossary_Specification system combines one or more @ref glossary_Trait
+ * "traits" into a @ref glossary_Trait_Set to classify concepts within the API.
  * Traits may define a number of simple-typed properties, allowing them
  * to be used to exchange data between interested parties.
  *
@@ -37,7 +37,7 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  *  - Custom views on this container that provide strongly-typed access.
  *
  * TraitsData is the transport-layer container that holds a @ref
- * trait_set, and any values set for the properties of these traits.
+ * glossary_Trait_Set, and any values set for the properties of these traits.
  * It has no semantic understanding of the data, providing simple
  * "by name" set/get of traits and their properties.
  *
@@ -48,8 +48,8 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  * As generic access to the container's data (based on
  * "well-known-strings") is inherently unstable. Instances of this class
  * should generally be wrapped in one of the specialized @ref
- * Specification "specification" or @ref trait derived "views" at
- * runtime by a @ref glossary_host "host" or @ref manager to ensure
+ * glossary_Specification "specification" or @ref glossary_Trait derived "views" at
+ * runtime by a @ref glossary_host "host" or @ref glossary_manager to ensure
  * consistent access to the correct keys.
  *
  * Trait @ref trait::property::Key "property keys" are always strings.

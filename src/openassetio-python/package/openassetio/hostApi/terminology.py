@@ -16,7 +16,7 @@
 """
 @namespace openassetio.hostApi.terminology
 This module provides utilities for a @ref glossary_host "host" that
-simplify the integration of a @ref manager "manager's" custom
+simplify the integration of a @ref glossary_manager "manager's" custom
 terminology into its user-facing components.
 """
 
@@ -63,7 +63,7 @@ defaultTerminology = {
 class Mapper:
     """
     The Mapper class provides string substitution methods and lookups to
-    determine the correct terminology for the supplied @ref manager.
+    determine the correct terminology for the supplied @ref glossary_manager.
 
     @unstable
     """

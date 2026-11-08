@@ -20,11 +20,11 @@
  *
  * @subsection testing_manager_plugins_fixtures The Fixtures File
  *
- * OpenAssetIO only defines a set of methods that a @ref glossary_host
- * "host" can use to communicate with a @ref manager. It does not
- * dictate the specifics of what constitutes valid inputs, or output
- * from any given manager. This is specific to its data model and
- * implementation.
+ * OpenAssetIO only defines a set of methods that a
+ * @ref glossary_host "host" can use to communicate with a
+ * @ref glossary_manager. It does not dictate the specifics of what
+ * constitutes valid inputs, or output from any given manager. This is
+ * specific to its data model and implementation.
  *
  * Consequently the test harness needs to be supplied with valid
  * values to pass to methods such as

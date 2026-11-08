@@ -3,13 +3,15 @@
  *
  * @section stable_resolution_overview Overview
  *
- * One of the main design principles of the @ref ManagerInterface is
- * that it is a reentrant and thread-safe API. Consequently, the result
- * of any call to an instance of this class should solely depend on the
+ * One of the main design principles of the
+ * @fqref{managerApi.ManagerInterface} "ManagerInterface" is that it is
+ * a reentrant and thread-safe API. Consequently, the result of any call
+ * to an instance of this class should solely depend on the
  * initialization settings, underlying asset data and the method
  * arguments. Any session state is held by the caller and supplied to
  * the manager as part of the method signature. This is to allow
- * multi-threaded access to the @ref ManagerInterface and avoid the
+ * multi-threaded access to the
+ * @fqref{managerApi.ManagerInterface} "ManagerInterface" and avoid the
  * inherent need for any additional internal state to exist within its
  * implementation. The @fqref{hostApi.Manager} "Manager" class wraps the
  * interface implementation to help the @ref glossary_host "host" with
@@ -19,13 +21,14 @@
  * task. Several textures need to be published together, or multiple
  * frames of a render need to be distributed to a render-farm.
  *
- * If a manager wants to support the concept of a @ref meta_version, it
- * becomes essential that there is some way for the manager to know that
- * disparate calls to the API are part of the same conceptual action, so
- * that the resolution of references is stable.
+ * If a manager wants to support the concept of a
+ * @ref glossary_Meta_version, it becomes essential that there is some
+ * way for the manager to know that disparate calls to the API are part
+ * of the same conceptual action, so that the resolution of references
+ * is stable.
  *
  * To achieve this, we introduce the idea of a @ref
- * manager_state token.
+ * glossary_Manager_State token.
  *
  * @note Generating a state token is optional for the manager. However,
  * without one, it is not possible to know if any two API calls are
@@ -33,9 +36,9 @@
  *
  * @section stable_resolution_manager_state Manager State
  *
- * The manager state mechanism allows a @ref manager to embed state
- * within the @ref glossary_host "host", such that it can correlate API
- * calls.
+ * The manager state mechanism allows a @ref glossary_manager to embed
+ * state within the @ref glossary_host "host", such that it can
+ * correlate API calls.
  *
  * Whenever a @ref glossary_Context "Context" is created by the host,
  * if the manager is

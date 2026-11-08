@@ -62,7 +62,7 @@ using StrMap = std::unordered_map<Str, Str>;
 /**
  * @name Identifiers
  *
- * Both @ref glossary_host "hosts" and @ref manager "managers" must have
+ * Both @ref glossary_host "hosts" and @ref glossary_manager "managers" must have
  * a unique identifier. The following aliases ensure that a consistent
  * type is used for these identifiers, and allows semantic documentation
  * of an identifier as a parameter/return type.
@@ -70,7 +70,7 @@ using StrMap = std::unordered_map<Str, Str>;
  * @{
  */
 
-/// A @ref glossary_host "host" or @ref manager identifier.
+/// A @ref glossary_host "host" or @ref glossary_manager identifier.
 using Identifier = Str;
 
 /// A list of identifiers.

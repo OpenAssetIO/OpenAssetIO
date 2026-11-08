@@ -111,10 +111,11 @@
  *
  * The API covers the following areas:
  * - @ref glossary_resolve "Resolution" of asset references (URIs) into
- *   a dictionary of data, grouped into one or more @ref trait "traits"
- *   (providing URLs for access and other asset data).
- * - @ref publish "Publishing" data for file-based and non-file-based
- *   assets.
+ *   a dictionary of data, grouped into one or more
+ *   @ref glossary_Trait "traits" (providing URLs for access and other
+ *   asset data).
+ * - @ref glossary_publish "Publishing" data for file-based and
+ *   non-file-based assets.
  * - Discovery and registration of related assets.
  *
  * The API, by design, does _not_:
@@ -236,7 +237,7 @@
  * @fqref{managerApi} "managerApi". Within each of these, you will
  * find the components you need depending on whether you are adopting
  * the API in a @ref glossary_host "host" or providing support for a
- * @ref manager through a plugin.
+ * @ref glossary_manager through a plugin.
  *
  * The first step in any integration is to write an implementation of
  * one of the two abstract interfaces defined by the API, illustrated in
@@ -251,8 +252,8 @@
  *
  * - The @fqref{hostApi.HostInterface} "HostInterface" represents the
  *   caller of the API. It allows the asset management system to
- *   customize the @ref publish "publishing" process if desired and/or
- *   query additional information about the host.
+ *   customize the @ref glossary_publish "publishing" process if desired
+ *   and/or query additional information about the host.
  *
  * The interface implementations are "wrapped" in the
  * @fqref{managerApi.Host} "Host" or
@@ -279,9 +280,10 @@
  * - Involve the manager in creation of data through the
  *   @ref example_publishing_a_file "publishing" workflow.
  *
- * For this reason, OpenAssetIO has the concept of mapping an @ref
- * glossary_entity "entity" to one or more @ref trait "traits" that
- * contain meaningful data for someone wanting to consume the entity.
+ * For this reason, OpenAssetIO has the concept of mapping an
+ * @ref glossary_entity "entity" to one or more
+ * @ref glossary_Trait "traits" that contain meaningful data for someone
+ * wanting to consume the entity.
  *
  * @note The API is by no means limited to just file paths, they form a
  * sensible first step. Any string used in an application, can be
@@ -311,8 +313,8 @@
  * - Allow filtering by these traits when browsing, etc.
  *
  * If these rules are followed, then arbitrary assets from arbitrary
- * hosts can be round-tripped through an asset manager without
- * specific support. However, there is scope to build more advanced and
- * useful functionality by mapping OpenAssetIO @ref trait "traits"
- * to the manager's native asset types and data.
+ * hosts can be round-tripped through an asset manager without specific
+ * support. However, there is scope to build more advanced and useful
+ * functionality by mapping OpenAssetIO @ref glossary_Trait "traits" to
+ * the manager's native asset types and data.
  */

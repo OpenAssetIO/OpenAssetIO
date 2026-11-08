@@ -14,7 +14,7 @@ namespace managerApi {
 OPENASSETIO_DECLARE_PTR(ManagerStateBase)
 
 /**
- * An abstract base for all @ref manager_state objects.
+ * An abstract base for all @ref glossary_Manager_State objects.
  *
  * The manager interface is reentrant by design, and its implementation
  * must be thread-safe. The state for a session is held in a separate
@@ -26,7 +26,7 @@ OPENASSETIO_DECLARE_PTR(ManagerStateBase)
  * API middleware.
  *
  * @see @ref stable_resolution
- * @see @ref manager_state
+ * @see @ref glossary_Manager_State
  */
 class ManagerStateBase {
  public:

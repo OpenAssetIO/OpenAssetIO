@@ -137,7 +137,7 @@ enum class EntityTraitsAccess : std::underlying_type_t<internal::access::Access>
 };
 
 /**
- * Access pattern for @ref publish "publishing".
+ * Access pattern for @ref glossary_publish "publishing".
  */
 // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class PublishingAccess : std::underlying_type_t<internal::access::Access> {
@@ -182,7 +182,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
    * Used to retrieve references to related entities, with the intention
    * of writing data to them.
    *
-   * For example, during a @ref publish this could be used to retrieve
+   * For example, during a @ref glossary_publish this could be used to retrieve
    * references to the individual components of an entity, allowing the
    * host to ask the manager for details on how and where to update
    * them.
@@ -196,7 +196,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
    * Used to allow the manager to dictate a list of entities that the
    * host should create.
    *
-   * For example, during a @ref publish this could be used to decompose
+   * For example, during a @ref glossary_publish this could be used to decompose
    * a single entity reference into a list of entity references, one for
    * each component that the manager expects to be published, each with
    * a different target location on disk.
@@ -219,7 +219,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
 // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class DefaultEntityAccess : std::underlying_type_t<internal::access::Access> {
   /**
-   * Indicate that the @ref manager should provide an entity reference
+   * Indicate that the @ref glossary_manager should provide an entity reference
    * that can be queried for existing data.
    *
    * @see @ref ResolveAccess.kRead, @ref RelationsAccess.kRead
@@ -227,7 +227,7 @@ enum class DefaultEntityAccess : std::underlying_type_t<internal::access::Access
   kRead = internal::access::Access::kRead,
 
   /**
-   * Indicate that the @ref manager should provide a reference suitable
+   * Indicate that the @ref glossary_manager should provide a reference suitable
    * for publishing to.
    *
    * @see @ref PublishingAccess.kWrite,
@@ -236,8 +236,8 @@ enum class DefaultEntityAccess : std::underlying_type_t<internal::access::Access
   kWrite = internal::access::Access::kWrite,
 
   /**
-   * Indicate that the @ref manager should provide an entity reference
-   * that will be used to @ref publish one or more new entities to.
+   * Indicate that the @ref glossary_manager should provide an entity reference
+   * that will be used to @ref glossary_publish one or more new entities to.
    *
    * @see @ref PublishingAccess.kCreateRelated,
    * @ref RelationsAccess.kCreateRelated

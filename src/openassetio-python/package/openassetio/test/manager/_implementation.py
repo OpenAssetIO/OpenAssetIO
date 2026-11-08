@@ -155,7 +155,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
     def loadTestsFromTestCase(self, testCaseClass):
         """
         Override of base class to additionally inject fixtures and
-        OpenAssetIO @ref manager into test cases.
+        OpenAssetIO @ref glossary_manager into test cases.
 
         Injects the child dict of the `fixtures` dict that corresponds
         to the test case class and method. If no such dict is available
