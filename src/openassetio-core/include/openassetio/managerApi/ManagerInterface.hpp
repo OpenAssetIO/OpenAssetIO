@@ -664,12 +664,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * A single 'task' in a host, may require more than one interaction
    * with the asset management system.
    *
-   * Because the @fqref{managerApi.ManagerInterface} "ManagerInterface"
-   * is effectively state-less. To simplify error handling, and allow an
-   * implementation to know which interactions are related, this API
-   * supports the concept of a @ref glossary_Manager_State object. This
-   * is contained in every @ref glossary_Context "Context" and passed to
-   * relevant calls.
+   * Because the @ref ManagerInterface is effectively state-less. To
+   * simplify error handling, and allow an implementation to know which
+   * interactions are related, this API supports the concept of a @ref
+   * glossary_Manager_State object. This is contained in every @ref
+   * glossary_Context "Context" and passed to relevant calls.
    *
    * This mechanism may be used for a variety of purposes. For example,
    * it could ensure that queries are made from a coherent time stamp
