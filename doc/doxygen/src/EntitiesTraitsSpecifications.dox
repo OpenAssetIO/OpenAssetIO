@@ -19,8 +19,8 @@
  * At its core OpenAssetIO has no detailed understanding of the
  * specifics of any given entity, only that:
  *  - Conceptually they may or may not exist.
- *  - Entities conform to one or more @ref trait "traits" that define
- *    what data is associated with the entity.
+ *  - Entities conform to one or more @ref glossary_Trait "traits" that
+ *    define what data is associated with the entity.
  *  - They may (or may not) have multiple versions.
  *  - They may (or may not) have relationships to other entities.
  *
@@ -28,11 +28,11 @@
  * used to identify a specific entity within the system. These
  * references are (generally) in the form of a <a
  * href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>.
- * The format of the reference itself is owned by the @ref manager and
- * conceptually, to the host, it is an opaque handle. Because of this
- * (and the fact that it is specifically only an identifier), no
- * concrete information about an entity can be determined from its
- * reference alone.
+ * The format of the reference itself is owned by the
+ * @ref glossary_manager and conceptually, to the host, it is an opaque
+ * handle. Because of this (and the fact that it is specifically only an
+ * identifier), no concrete information about an entity can be
+ * determined from its reference alone.
  *
  * OpenAssetIO's purpose is to define a standardized set of actions that
  * can be performed to retrieve information about an entity from one of
@@ -77,9 +77,10 @@
  *
  * Traits allow a consumer of data to request or consider only the
  * specific qualities it understands. For example, when publishing a new
- * entity, a @ref manager may choose to adapt its high-level behaviour
- * based on whether or not the entity has the `locatableContent` trait -
- * to ensure data is moved to long-term storage.
+ * entity, a @ref glossary_manager may choose to adapt its high-level
+ * behaviour based on whether or not the entity has the
+ * `locatableContent` trait - to ensure data is moved to long-term
+ * storage.
  *
  * The manager doesn't need to check an extensive list of which entity
  * types may be registered with data on disk - it just checks if any
@@ -88,9 +89,9 @@
  *
  * @section entity_data Entity Data
  *
- * Every @ref trait associated with an @ref glossary_entity "entity" can
- * define zero or more key/value pairs of data (properties) that the
- * entity (may) hold.
+ * Every @ref glossary_Trait associated with an
+ * @ref glossary_entity "entity" can define zero or more key/value pairs
+ * of data (properties) that the entity (may) hold.
  *
  * Traits are the mechanism by which a @ref glossary_host "host"
  * requests specific data about an entity at runtime. The
@@ -110,11 +111,11 @@
  * filesystem searches.
  *
  * The @ref glossary_Context "Context" passed to the API methods by the
- * host plays an important role during resolution. Its @ref locale
- * property also makes use of traits to specify details of the host
- * environment. These may affect the resolved _value_ of a trait
- * property, but must never change the interpretation or format of that
- * value.
+ * host plays an important role during resolution. Its
+ * @ref glossary_locale property also makes use of traits to specify
+ * details of the host environment. These may affect the resolved
+ * _value_ of a trait property, but must never change the interpretation
+ * or format of that value.
  *
  * @note In many real-world production systems, entities are manageed
  * through distributed service-oriented platforms. The fact that a host
@@ -144,11 +145,11 @@
  * associated data fields to query and publish shot timing information
  * directly to the management system.
  *
- * The API contract states that a @ref manager **must** guarantee to
- * store and recall any traits and their properties registered by this
- * mechanism. This allows a host to manage arbitrary data through the
- * asset management system without any special handling by the manager
- * itself.
+ * The API contract states that a @ref glossary_manager **must**
+ * guarantee to store and recall any traits and their properties
+ * registered by this mechanism. This allows a host to manage arbitrary
+ * data through the asset management system without any special handling
+ * by the manager itself.
  *
  * @warning In OpenAssetIO, trait properties are limited to simple
  * constants using basic types such as string, float, int and bool.
@@ -183,7 +184,7 @@
  * read from some local cache, where as a host writing a new version of
  * an entity could be directed to a staging area. The manager should
  * pick the most appropriate location based on the calling context's
- * @ref locale.
+ * @ref glossary_locale.
  *
  * The point to note is that regardless of the value, the `location`
  * is always pointing to the data for the specific referenced entity.
@@ -206,7 +207,7 @@
  * traits. They are used at runtime to ensure consistent handling of
  * traits between different hosts and managers.
  *
- * When a Specification combines traits into a @ref trait_set -
+ * When a Specification combines traits into a @ref glossary_Trait_Set -
  * they are additive. Each additional trait narrows the set's focus.
  * Combining two traits does _not_ mean "either/or".
  *
@@ -217,7 +218,7 @@
  *
  * There are three notable uses of specifications within OpenAssetIO:
  *
- * - The context @ref locale - to describe the specifics of the
+ * - The context @ref glossary_locale - to describe the specifics of the
  *   host environment calling the API.
  * - During @ref glossary_register and @ref glossary_resolve - to hold
  *   the data for an @ref glossary_entity "entity".
@@ -244,10 +245,10 @@
  *
  * @subsection entity_specifications Entity Specifications
  *
- * Specifications used with @ref glossary_register and returned by @ref
- * glossary_resolve to hold @ref glossary_entity "entity" data are known
- * as "entity specifications". The @ref trait_set they define can also
- * be used as a shorthand for consistency when:
+ * Specifications used with @ref glossary_register and returned by
+ * @ref glossary_resolve to hold @ref glossary_entity "entity" data are
+ * known as "entity specifications". The @ref glossary_Trait_Set they
+ * define can also be used as a shorthand for consistency when:
  *
  *  - A host wishes to know if a manager would like to be involved in
  *    reads or writes of a specific kind of data.
@@ -282,10 +283,11 @@
  *
  * @subsection Using Trait Sets as a Filter Predicate
  *
- * When a @ref trait_set is used as a predicate to search for entities.
- * Such as in @fqref{hostApi.Manager.getWithRelationship}
- * "getWithRelationship", or when browsing for assets, traits are
- * considered additive, and they must all be satisfied.
+ * When a @ref glossary_Trait_Set is used as a predicate to search for
+ * entities. Such as in
+ * @fqref{hostApi.Manager.getWithRelationship} "getWithRelationship", or
+ * when browsing for assets, traits are considered additive, and they
+ * must all be satisfied.
  *
  * As an example, consider a world-building tool wishing to browse for
  * an arbitrary three-dimensional scene file to incorporate (e.g. USD).
@@ -296,11 +298,12 @@
  *
  * It may be tempting to form a specification composed of all potential
  * traits, eg: `locatableContent`, `scene`, `camera`, `lights`,
- * `geometry` etc. Because of the "additive" nature of a @ref trait_set
- * "trait sets", this would effectively require that only scenes
- * conforming to _all_ of the listed traits should be presented. The
- * correct trait collection to use would be just `locatableContent` and
- * `scene` when browsing for an arbitrary scene file.
+ * `geometry` etc. Because of the "additive" nature of a
+ * @ref glossary_Trait_Set "trait sets", this would effectively require
+ * that only scenes conforming to _all_ of the listed traits should be
+ * presented. The correct trait collection to use would be just
+ * `locatableContent` and `scene` when browsing for an arbitrary scene
+ * file.
  *
  * If it was required that the data be in a specific format (eg: USD)
  * then the `format` property defined by the `sceneReader` trait should
@@ -376,14 +379,14 @@
  * @subsection specification_selection Picking Which Traits to Use
  *
  * As a @ref glossary_host "host", it is important to use the correct
- * specifications and traits when making calls to a @ref manager. This
- * ensures the expected type of entity is returned or registered. A
- * manager must also accurately describe any entities when requested.
- * In order to facilitate a common dialog between OpenAssetIO compatible
- * systems, the project provides a set of well-known specifications and
- * traits through industry-specific packages. Always use one of these
- * where possible as they are, by definition, also known to other tools
- * in the OpenAssetIO ecosystem.
+ * specifications and traits when making calls to a
+ * @ref glossary_manager. This ensures the expected type of entity is
+ * returned or registered. A manager must also accurately describe any
+ * entities when requested. In order to facilitate a common dialog
+ * between OpenAssetIO compatible systems, the project provides a set of
+ * well-known specifications and traits through industry-specific
+ * packages. Always use one of these where possible as they are, by
+ * definition, also known to other tools in the OpenAssetIO ecosystem.
  *
  * Hosts and managers are also free to make their own specifications and
  * traits for their native types. For example, creating a new

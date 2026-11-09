@@ -20,7 +20,7 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
  * "host". This may be a simple pipeline tool, or a full content
  * creation application.
  *
- * The HostInterface provides a generic mechanism for a @ref manager to
+ * The HostInterface provides a generic mechanism for a @ref glossary_manager to
  * query information about the identity of the host. In future, this
  * interface may be extended to include the ability to retrieve
  * information about available documents and their known entity
@@ -30,7 +30,7 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
  * of the HostInterface to the @fqref{hostApi.ManagerFactory}
  * "ManagerFactory" class upon construction.
  *
- * A @ref manager does not call the HostInterface directly, it is
+ * A @ref glossary_manager does not call the HostInterface directly, it is
  * always accessed via the @fqref{managerApi.Host} "Host" wrapper.
  * This allows the API to insert suitable house-keeping and auditing
  * functionality in between.

@@ -37,7 +37,7 @@ extern "C" {
 // oa_managerApi_CManagerInterface_aliases
 
 /**
- * Opaque handle type provided by @ref manager plugins that provide
+ * Opaque handle type provided by @ref glossary_manager plugins that provide
  * their @fqref{managerApi.ManagerInterface} "ManagerInterface"
  * implementation via the C API plugin system.
  *
@@ -55,11 +55,11 @@ extern "C" {
 typedef struct oa_managerApi_CManagerInterface_t* oa_managerApi_CManagerInterface_h;
 
 /**
- * Function pointer suite provided by @ref manager plugins that provide
+ * Function pointer suite provided by @ref glossary_manager plugins that provide
  * the @fqref{managerApi.ManagerInterface} "ManagerInterface"
  * implementation via the C API plugin system.
  *
- * Instances of this suite are provided by a @ref manager C plugin.
+ * Instances of this suite are provided by a @ref glossary_manager C plugin.
  *
  * The function pointers correspond to member functions of the
  * @fqref{managerApi.ManagerInterface} "ManagerInterface" C++ class,

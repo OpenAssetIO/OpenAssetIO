@@ -23,12 +23,12 @@
  * glossary_host "Host" (as it "hosts" the API). Through the use of
  * manager plugins, OpenAssetIO allows the host to communicate with one
  * or more @ref glossary_Asset_Management_System
- * "Asset Management Systems", called @ref manager "Managers".
+ * "Asset Management Systems", called @ref glossary_manager "Managers".
  *
  * This page covers hows to configure OpenAssetIO so that the hosts you
  * use (e.g. @ref glossary_DCC "DCC tools", applications and other
  * scripts) use a specific manager of your choice to @ref
- * glossary_resolve and potentially @ref publish data.
+ * glossary_resolve and potentially @ref glossary_publish data.
  *
  * OpenAssetIO itself is usually built into any host that supports it,
  * this means you don't normally need do to anything to ensure the API
@@ -87,17 +87,17 @@
  * @subsection installing_manager_plugins_manual Manual installation
  *
  * The OpenAssetIO plugin system can also be explicitly configured to
- * look in specific locations. The @ref plugin_path_var environment
- * variable can be set to point to one or more directories containing
- * manager plugins.
+ * look in specific locations. The @ref glossary_plugin_path_var
+ * environment variable can be set to point to one or more directories
+ * containing manager plugins.
  *
  * This is required for C++ plugins, but can be used for Python plugins
  * as well, where entry point discovery (described above) is not
  * available.
  *
  * It is a standard 'left-most wins' search-path, that uses platform
- * specific delimiters (see @ref plugin_path_var "here" for more
- * information).
+ * specific delimiters (see @ref glossary_plugin_path_var "here" for
+ * more information).
  *
  * This variable is completely independent from `$PYTHONPATH`,
  * `$LD_LIBRARY_PATH`, or any other language/host specific
@@ -112,7 +112,8 @@
  * - Download or otherwise obtain the required manager plugin.
  * - Place this in your chosen location. This can be anywhere on a
  *   filesystem that is visible to the hosts that you wish to use.
- * - Set, or extend @ref plugin_path_var to include this location.
+ * - Set, or extend @ref glossary_plugin_path_var to include this
+ *   location.
  *
  *
  * @subsection installing_manager_plugins_hybrid Hybrid plugins
@@ -174,8 +175,8 @@
  *
  * You can specify your preferred manager and settings in a simple
  * <a href="https://toml.io/en/" target="_blank">TOML</a> file, and set
- * the @ref default_config_var to point to this file. Hosts should then
- * use this configuration to setup the API at startup.
+ * the @ref glossary_default_config_var to point to this file. Hosts
+ * should then use this configuration to setup the API at startup.
  *
  * The format for manager-specific sections of this file is documented
  * @fqref{hostApi.ManagerFactory.defaultManagerForInterface} "here".
@@ -185,7 +186,7 @@
  * - Create a TOML file with the identifier and any settings in a
  *   location of your choosing. This can be anywhere on a filesystem
  *   that is visible to the hosts that you wish to use.
- * - Set @ref default_config_var to point to that file.
+ * - Set @ref glossary_default_config_var to point to that file.
  *
  * @note Some hosts may provide functionality to override or ignore this
  * configuration.
@@ -196,7 +197,7 @@
  * To help diagnose issues, first make sure that debug logging is
  * enabled in your host. You usually do this by adjusting the host's
  * native logging controls, or in some cases you may need to set @ref
- * logging_severity_var to `1`.
+ * glossary_logging_severity_var to `1`.
  *
  * @subsection pip_plugins_missing Pip installed Python plugins not being found
  *
@@ -210,14 +211,14 @@
  *
  * @subsection manual_plugins_missing Manually installed plugins not being found
  *
- * - Check @ref plugin_path_var includes the directory in which the
- *   desired plugins reside.
+ * - Check @ref glossary_plugin_path_var includes the directory in which
+ *   the desired plugins reside.
  * - Check any messages logged by the plugin system during startup.
  *
  * @subsection default_config_not_working Default config mechanism not working
  *
- * - Check @ref default_config_var points to the file using a valid path
- *   for the operating system in question.
+ * - Check @ref glossary_default_config_var points to the file using a
+ *   valid path for the operating system in question.
  * - Check the user has read permissions for the file.
  * - Check any messages logged by the manager factory during startup.
  */

@@ -21,7 +21,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace trait {
 
 /**
- * Type aliases for @ref trait properties within a @ref TraitsData
+ * Type aliases for @ref glossary_Trait properties within a @ref TraitsData
  * instance.
  */
 namespace property {
@@ -31,7 +31,7 @@ namespace property {
  *
  * Keys must be UTF-8 compatible strings for required portability.
  *
- * Note that typically @ref trait_views will be used to access
+ * Note that typically @ref glossary_Trait_View_classes will be used to access
  * properties in a @ref TraitsData instance via concrete member
  * functions, so it is highly desirable that keys are ASCII to maximise
  * portability when mapping property keys to member function names.
@@ -56,7 +56,7 @@ using KeySet = std::unordered_set<Key>;
  *
  * IDs must be UTF-8 compatible strings for required portability.
  *
- * Note that typically @ref trait_views will be used to access
+ * Note that typically @ref glossary_Trait_View_classes will be used to access
  * properties within a @ref TraitsData instance, rather than direct
  * property access using a `TraitId`, so it is desirable that trait IDs
  * are ASCII to maximise portability when mapping IDs to class names.

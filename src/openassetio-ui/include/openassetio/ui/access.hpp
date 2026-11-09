@@ -29,7 +29,7 @@ enum class UIAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to request a UI element as part of a publishing workflow.
    *
-   * For example, this could be a panel for augmenting @ref trait
+   * For example, this could be a panel for augmenting @ref glossary_Trait
    * "traits" that are used by the host in the publishing process, or
    * published in addition to those derived by the host.
    */

@@ -96,7 +96,7 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * The name of the env var used to define the default UI delegate
    * config TOML file.
    *
-   * The value of this is @ref default_config_var - the same as is used
+   * The value of this is @ref glossary_default_config_var - the same as is used
    * in the @fqref{hostApi.ManagerFactory} "ManagerFactory".
    *
    * @see @ref defaultUIDelegateForInterface.
@@ -200,7 +200,7 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
 
   /**
    * Creates the default @ref UIDelegate as defined by the TOML
-   * configuration file referenced by the @ref default_config_var.
+   * configuration file referenced by the @ref glossary_default_config_var.
    *
    * @note This is the same environment variable that is used in the
    * @fqref{hostApi.ManagerFactory} "ManagerFactory". This means that if
@@ -226,17 +226,17 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * messaging from the instantiated @ref UIDelegate instances.
    *
    * @returns A default-configured UI delegate if @ref
-   * default_config_var is set and the configured identifier is available
+   * glossary_default_config_var is set and the configured identifier is available
    * from the UI delegate factory. Returns nullptr if the var is not set
    * or the configured identifier is not available.
    *
    * @throws errors.InputValidationException if there are errors if the
    * config file does not exist at the path provided in the @ref
-   * default_config_var env var.
+   * glossary_default_config_var env var.
    *
    * @throws errors.ConfigurationException if there are errors occur
    * whilst loading the TOML file referenced by the @ref
-   * default_config_var env var, or if it is missing the
+   * glossary_default_config_var env var, or if it is missing the
    * `manager.identifier` field.
    */
   [[nodiscard]] static UIDelegatePtr defaultUIDelegateForInterface(

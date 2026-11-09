@@ -251,7 +251,7 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * for it to be unsupported. Also, this method may provide additional
    * metadata useful in optimising the user experience.
    *
-   * @param uiTraitSet The set of UI-specific @ref trait "traits"
+   * @param uiTraitSet The set of UI-specific @ref glossary_Trait "traits"
    * determining the kind of UI element the host may wish to delegate.
    *
    * @param uiAccess Type of operation that the delegated UI will be
@@ -314,7 +314,7 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * host to update the initial request with changes, e.g. the target
    * selection of entities.
    *
-   * @param uiTraitsData UI-specific @ref trait "traits" (and their
+   * @param uiTraitsData UI-specific @ref glossary_Trait "traits" (and their
    * associated properties, if any) determining the kind of UI to
    * create.
    *
