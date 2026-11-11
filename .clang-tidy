@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2022 Google LLC
-# Copyright 2013-2025 The Foundry Visionmongers Ltd
+# Copyright 2013-2026 The Foundry Visionmongers Ltd
 
 # Modified from: https://raw.githubusercontent.com/googleapis/google-cloud-cpp/main/.clang-tidy
 # See: https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/list.html
@@ -92,8 +92,10 @@ CheckOptions:
     # * Python.h, pystate.h, pytypedefs.h, object.h, pyerrors.h,
     #   abstract.h - Python.h is the umbrella header.
     # * toml++/ - toml.h is the umbrella header.
-    # * ada/ - ada.h the umbrella header.
+    # * ada.h, ada/ - ada.h is the umbrella header, matched by name as
+    #   well as by directory, since the include path may not contain
+    #   `ada/`. Its symbols are declared in sub-headers (ada/url.h etc).
     # * pybind11/ - pybind11.h is the umbrella header. Other headers add
     #   functionality (e.g. stl.h), but may be falsely flagged as
     #   unused.
-    - { key: misc-include-cleaner.IgnoreHeaders,  value: "Python.h;pystate.h;pytypedefs.h;object.h;pyerrors.h;abstract.h;toml\\+\\+/.*;ada/.*;pybind11/.*" }
+    - { key: misc-include-cleaner.IgnoreHeaders,  value: "Python.h;pystate.h;pytypedefs.h;object.h;pyerrors.h;abstract.h;toml\\+\\+/.*;ada\\.h;ada/.*;pybind11/.*" }
