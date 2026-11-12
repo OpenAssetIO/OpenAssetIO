@@ -51,7 +51,7 @@ jobs:
             shell: cmd
           - os: ubuntu-22.04
             shell: bash
-          - os: macos-14
+          - os: macos-latest
             shell: bash
     defaults:
       run:
@@ -70,7 +70,7 @@ jobs:
         ${{ matrix.config.preamble }}
         python -m pip install src/openassetio-python
       env:
-        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
 
     - name: Install test dependencies
       run: pip install -r src/openassetio-python/tests/requirements.txt
@@ -87,7 +87,7 @@ jobs:
         config:
           - os: windows-2022
           - os: ubuntu-22.04
-          - os: macos-14
+          - os: macos-latest
     defaults:
       run:
         shell: bash
@@ -102,7 +102,7 @@ jobs:
         run: >
           cmake -S . -B build
           --install-prefix '${{ env.Python_ROOT_DIR }}'
-          --toolchain '${{ github.workspace }}/.conan/conan_paths.cmake'
+          --toolchain '${{ github.workspace }}/.conan/conan_toolchain.cmake'
 
           cmake --build build --parallel --config Release
 

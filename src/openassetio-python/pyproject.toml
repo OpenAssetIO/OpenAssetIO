@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2021-2022 The Foundry Visionmongers Ltd
+# Copyright 2021-2026 The Foundry Visionmongers Ltd
 
 [build-system]
 requires = [
@@ -140,4 +140,4 @@ environment-pass = ["PIP_VERBOSE", "OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN"]
 [tool.cibuildwheel.linux]
 # Linux runs in a docker container, with the project at top level
 before-build = "resources/build/bootstrap-cibuildwheel-manylinux.sh"
-environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake" }
+environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_toolchain.cmake" }
