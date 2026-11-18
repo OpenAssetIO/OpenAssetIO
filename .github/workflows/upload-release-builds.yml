@@ -41,13 +41,13 @@ jobs:
         - os: ubuntu-22.04
           shell: bash
           build-type: Release
-        - os: macos-14
+        - os: macos-latest
           shell: bash
           build-type: Debug
-        - os: macos-14
+        - os: macos-latest
           shell: bash
           build-type: RelWithDebInfo
-        - os: macos-14
+        - os: macos-latest
           shell: bash
           build-type: Release
     defaults:
@@ -61,6 +61,8 @@ jobs:
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
+        with:
+          conan-build-types: ${{ matrix.config.build-type }}
 
       # We don't want to publish the test build, it gets too big.
       - name: Build and Install (No tests)
@@ -69,7 +71,7 @@ jobs:
 
           cmake -S . -B build -G Ninja -DOPENASSETIO_ENABLE_SIMPLECPPMANAGER=ON -DOPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=lib/OpenAssetIO/plugins
           --install-prefix ${{ github.workspace }}/dist/${{ matrix.config.os }}${{ matrix.config.build-type }}
-          --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
+          --toolchain ${{ github.workspace }}/.conan/conan_toolchain.cmake
           -DCMAKE_BUILD_TYPE=${{matrix.config.build-type}}
 
           cmake --build build
