@@ -158,21 +158,16 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
 
-      # TODO(DF): Re-enable once TraitGen tests are migrated to Conan 2,
-      #  see https://github.com/OpenAssetIO/OpenAssetIO/issues/1313
-      # - name: Test TraitGen (C++)
-      #   # TODO(DF): Re-enable on all platforms once TraitGen issue is
-      #   #  resolved: https://github.com/OpenAssetIO/OpenAssetIO-TraitGen/issues/123
-      #   if: matrix.config.os == 'ubuntu-22.04'
-      #   run: |
-      #     python -m pytest -v --capture=tee-sys -m ctest external/TraitGen
-      #   env:
-      #     PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
-      #     CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
-      #     OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
-      #     CONAN_USER_HOME: ~/conan
-      #     # For Windows:
-      #     OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
+      - name: Test TraitGen (C++)
+        run: |
+          python -m pytest -v --capture=tee-sys -m ctest external/TraitGen
+        env:
+         PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+         CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
+         OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
+         CONAN_HOME: ~/conan
+         # For Windows:
+         OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v7
