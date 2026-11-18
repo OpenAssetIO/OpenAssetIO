@@ -292,3 +292,97 @@ jobs:
           OPENASSETIO_LOGGING_SEVERITY: 1
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
           OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml
+
+  wheel-cpp-consumer:
+    name: C++ consumer using Python wheel
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          - os: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      - name: Build OpenAssetIO wheel
+        run: |
+          python -m pip wheel ./src/openassetio-python \
+            --no-deps \
+            --no-build-isolation \
+            --wheel-dir wheelhouse
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      - name: Install wheel in virtual environment
+        run: |
+          python -m venv .venv-wheel
+          .venv-wheel/bin/pip install wheelhouse/*.whl
+
+      - name: Create C++ consumer project
+        run: |
+          mkdir -p consumer
+          cat > consumer/CMakeLists.txt <<'EOF'
+          cmake_minimum_required(VERSION 3.27)
+          project(OpenAssetIOWheelConsumer LANGUAGES CXX)
+
+          find_package(OpenAssetIO CONFIG REQUIRED)
+
+          add_executable(consumer main.cpp)
+
+          target_link_libraries(consumer PRIVATE
+            OpenAssetIO::openassetio-core
+            OpenAssetIO::openassetio-ui
+          )
+          EOF
+
+          cat > consumer/main.cpp <<'EOF'
+          #include <openassetio/InfoDictionary.hpp>
+          #include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
+
+          class TestUIDelegate : public openassetio::ui::managerApi::UIDelegateInterface
+          {
+          public:
+              openassetio::Str identifier() const override
+              {
+                  return "test.delegate";
+              }
+
+              openassetio::Str displayName() const override
+              {
+                  return "Test UI Delegate";
+              }
+          };
+
+          int main()
+          {
+              openassetio::InfoDictionary info;
+              TestUIDelegate delegate;
+              return 0;
+          }
+          EOF
+
+      - name: Configure C++ consumer
+        run: |
+          PACKAGE_DIR=$(
+            .venv-wheel/bin/python -c \
+            "import openassetio, pathlib; print(pathlib.Path(openassetio.__file__).parent)"
+          )
+
+          cmake -S consumer -B consumer/build \
+            -DOpenAssetIO_DIR="$PACKAGE_DIR/cmake/OpenAssetIO"
+
+      - name: Build C++ consumer
+        run: |
+          cmake --build consumer/build --parallel 4
+
+      - name: Run C++ consumer
+        run: |
+          PACKAGE_DIR=$(
+            .venv-wheel/bin/python -c \
+            "import openassetio, pathlib; print(pathlib.Path(openassetio.__file__).parent)"
+          )
+
+          LD_LIBRARY_PATH="$PACKAGE_DIR" consumer/build/consumer
