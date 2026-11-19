@@ -74,4 +74,10 @@ if (TARGET openassetio.internal.install)
         FIXTURES_REQUIRED openassetio.internal.install
         LABELS Test
     )
+    # The tests run using the test venv's Python (if enabled), so must
+    # not start until the venv has been created.
+    openassetio_add_test_venv_fixture_dependency(
+        openassetio.example.${PROJECT_NAME}.pytest)
+    openassetio_add_test_venv_fixture_dependency(
+        openassetio.example.${PROJECT_NAME}.apiCompliance)
 endif ()
