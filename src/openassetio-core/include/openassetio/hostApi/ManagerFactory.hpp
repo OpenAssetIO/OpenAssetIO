@@ -25,7 +25,7 @@ OPENASSETIO_DECLARE_PTR(ManagerFactory)
 
 /**
  * The ManagerFactory is the primary mechanism for querying for
- * available @ref manager "managers" and constructing a
+ * available @ref glossary_manager "managers" and constructing a
  * @fqref{hostApi.Manager} "Manager".
  *
  * The underlying manager implementation is constructed using the
@@ -41,7 +41,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
 
   /**
    * Simple struct containing the default configuration details of a
-   * potential @ref manager implementation.
+   * potential @ref glossary_manager implementation.
    */
   struct ManagerDetail {
     /**
@@ -100,7 +100,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param hostInterface The @ref glossary_host "host's" implementation
    * of the `HostInterface` that uniquely identifies the host and
-   * provides common hooks for the @ref manager to query asset-related
+   * provides common hooks for the @ref glossary_manager to query asset-related
    * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used to
@@ -128,7 +128,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   [[nodiscard]] Identifiers identifiers() const;
 
   /**
-   * Get the details for each available @ref manager as a map of
+   * Get the details for each available @ref glossary_manager as a map of
    * manager identifier to manager details.
    *
    * This provides the default settings that can be taken and mutated
@@ -142,13 +142,13 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * @see @ref ManagerDetail
    *
    * @return A @ref ManagerDetail instance for each available @ref
-   * manager.
+   * glossary_manager.
    */
   [[nodiscard]] ManagerDetails availableManagers() const;
 
   /**
    * Create a @fqref{hostApi.Manager} "Manager" instance for the @ref
-   * manager associated with the given identifier.
+   * glossary_manager associated with the given identifier.
    *
    * The instance returned should then be used for all interaction with
    * the manager.
@@ -161,7 +161,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
 
   /**
    * Create a @fqref{hostApi.Manager} "Manager" instance for the @ref
-   * manager associated with the given identifier.
+   * glossary_manager associated with the given identifier.
    *
    * The instance returned should then be used for all interaction with
    * the manager.
@@ -170,7 +170,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param hostInterface The @ref glossary_host "host's" implementation
    * of the `HostInterface` that uniquely identifies the host and
-   * provides common hooks for the @ref manager to query asset-related
+   * provides common hooks for the @ref glossary_manager to query asset-related
    * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used to
@@ -192,7 +192,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   /**
    * Creates the default @fqref{hostApi.Manager} "Manager" as defined by
    * the TOML configuration file referenced by the
-   * @ref default_config_var.
+   * @ref glossary_default_config_var.
    *
    * @note This mechanism should be the default approach for a host to
    * initialize the API. Extended functionality to override this
@@ -210,16 +210,16 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * manager.
    *
    * @returns A default-configured manager if
-   * @ref default_config_var is set, otherwise a nullptr if
+   * @ref glossary_default_config_var is set, otherwise a nullptr if
    * the var was not set.
    *
    * @throws errors.InputValidationException if there are errors if the
    * config file does not exist at the path provided in the @ref
-   * default_config_var env var.
+   * glossary_default_config_var env var.
    *
    * @throws errors.ConfigurationException if there are errors occur
    * whilst loading the TOML file referenced by the @ref
-   * default_config_var env var, or if it is missing the
+   * glossary_default_config_var env var, or if it is missing the
    * `manager.identifier` field.
    */
   [[nodiscard]] static ManagerPtr defaultManagerForInterface(
@@ -256,7 +256,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param hostInterface The @ref glossary_host "host's" implementation
    * of the `HostInterface` that uniquely identifies the host and
-   * provides common hooks for the @ref manager to query asset-related
+   * provides common hooks for the @ref glossary_manager to query asset-related
    * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used

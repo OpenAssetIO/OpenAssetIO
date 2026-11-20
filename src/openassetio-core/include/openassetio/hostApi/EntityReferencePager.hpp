@@ -42,7 +42,7 @@ class OPENASSETIO_CORE_EXPORT EntityReferencePager final {
   using Page = EntityReferences;
 
   /**
-   * Constructs a new EntityReferencePager wrapping a @ref manager
+   * Constructs a new EntityReferencePager wrapping a @ref glossary_manager
    * plugin's implementation.
    *
    * @note Instances of this class should not be constructed

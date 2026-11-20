@@ -3,12 +3,13 @@
  *
  * @section manager_architecture_summary Architecture Summary
  *
- * - In OpenAssetIO, a @ref manager is some centralized system that serves
- *   as a source of truth regarding the status and/or location of digital
- *   media and other organizational aspects of a project. The goal of the
- *   API is to allow these systems to be more easily integrated, and
- *   critically, more comprehensively involved in the lifetime of content
- *   as it moves between various tools and applications.
+ * - In OpenAssetIO, a @ref glossary_manager is some centralized system
+ *   that serves as a source of truth regarding the status and/or
+ *   location of digital media and other organizational aspects of a
+ *   project. The goal of the API is to allow these systems to be more
+ *   easily integrated, and critically, more comprehensively involved in
+ *   the lifetime of content as it moves between various tools and
+ *   applications.
  *
  * - The implementation of any given manager may consist of
  *   several discrete services, but within any OpenAssetIO session, it
@@ -18,19 +19,21 @@
  *   "host". The host may instantiate one or more managers.
  *
  * - All interaction between the @ref glossary_host "host" and a @ref
- *   manager occurs through the manager's implementation of the
- *   @ref ManagerInterface.
+ *   glossary_manager occurs through the manager's implementation of the
+ *   @fqref{managerApi.ManagerInterface} "ManagerInterface".
  *
- * - A manager's implementation of the @ref ManagerInterface supplied
+ * - A manager's implementation of the
+ *   @fqref{managerApi.ManagerInterface} "ManagerInterface" supplied
  *   through its @ref glossary_manager_plugin is wrapped in the
  *   @fqref{hostApi.Manager} "Manager" class before being made available
- *   to the @ref glossary_host "host". This is to allow for host
- *   session state management and other auditing/logging functionality.
- *   It also provides a degree of isolation against future API changes.
+ *   to the @ref glossary_host "host". This is to allow for host session
+ *   state management and other auditing/logging functionality. It also
+ *   provides a degree of isolation against future API changes.
  *
- * - Methods of the @ref ManagerInterface are required to be reentrant
- *   and thread-safe. The response to any method should only depend on
- *   the local state established during
+ * - Methods of the
+ *   @fqref{managerApi.ManagerInterface} "ManagerInterface" are required
+ *   to be reentrant and thread-safe. The response to any method should
+ *   only depend on the local state established during
  *   @fqref{managerApi.ManagerInterface.initialize} "initialization",
  *   the underlying asset data and any other objects passed into each
  *   call. The same logical operation may be spread out over time and
@@ -53,7 +56,7 @@
  *   methods when supplied the reference returned from the registration.
  *
  * - A @ref glossary_host "host" may query other well-known or
- *   host-specific @ref trait "traits" to provide additional
+ *   host-specific @ref glossary_Trait "traits" to provide additional
  *   customization of behavior or the handling of data referenced by
  *   an @ref glossary_Entity_Reference "entity reference". For example,
  *   determining the correct frame range and colorspace of an image
@@ -63,29 +66,30 @@
  *   used to understand the intentions and/or requirements of the
  *   caller, as well as to determine which part of an application is
  *   involved in the call. This can be used to help determine the
- *   correct values for @ref trait properties during @ref
+ *   correct values for @ref glossary_Trait properties during @ref
  *   glossary_resolve.
  *
- * - Many API calls are passed a @ref trait_set. They form a strong type
- *   mechanism, and must be respected as a filter predicate for
- *   browsing/query operations, and as a type specifier for creation
+ * - Many API calls are passed a @ref glossary_Trait_Set. They form a
+ *   strong type mechanism, and must be respected as a filter predicate
+ *   for browsing/query operations, and as a type specifier for creation
  *   operations. See @ref entities_traits_and_specifications for more
  *   details on this mechanism.
  *
- * - The @ref ManagerInterface implementation will be passed a
- *   @fqref{managerApi.HostSession} "HostSession" to the
- *   majority of API calls. This should be used for *all* logging, and
- *   any generic host queries via the supplied
- *   @fqref{managerApi.Host} "Host" object. Managers may wish
- *   to use details of the @ref glossary_host "host" obtained from
- *   this object to adapt their behavior if desired.
+ * - The @fqref{managerApi.ManagerInterface} "ManagerInterface"
+ *   implementation will be passed a
+ *   @fqref{managerApi.HostSession} "HostSession" to the majority of API
+ *   calls. This should be used for *all* logging, and any generic host
+ *   queries via the supplied @fqref{managerApi.Host} "Host" object.
+ *   Managers may wish to use details of the @ref glossary_host "host"
+ *   obtained from this object to adapt their behavior if desired.
  *
  * - If a manager wants to support some kind of temporally stable
- *   resolution of @ref meta_version "Meta-versions" or similar,
- *   implement @fqref{managerApi.ManagerInterface.createState}
- *   "createState", and return some token that can be used as an anchor.
- *   A new token will be requested each time a @ref glossary_Context
- *   "Context" is made, and will then be available via
+ *   resolution of @ref glossary_Meta_version "Meta-versions" or
+ *   similar, implement
+ *   @fqref{managerApi.ManagerInterface.createState} "createState", and
+ *   return some token that can be used as an anchor. A new token will
+ *   be requested each time a @ref glossary_Context "Context" is made,
+ *   and will then be available via
  *   @fqref{Context.managerState} "Context.managerState" in any call
  *   that receives a context. Hosts will take care of managing the
  *   lifetime of any given Context in terms that are meaningful for the
@@ -131,7 +135,7 @@
  *   populate the requested trait property values.
  *
  * - Implement a @ref glossary_manager_plugin and install this on @ref
- *   plugin_path_var.
+ *   glossary_plugin_path_var.
  *
  * @subsection manager_todo_publishing Required for Publishing
  *
@@ -150,10 +154,11 @@
  *   @fqref{managerApi.ManagerInterface.Capability.kPublishing}
  *   "publishing" capability to support the registration of new assets.
  *
- * - Map supported OpenAssetIO @ref trait "traits" to internal asset
- *   types where possible.
+ * - Map supported OpenAssetIO @ref glossary_Trait "traits" to internal
+ *   asset types where possible.
  *
- * - Persist the full @ref trait_set of the specification supplied to
+ * - Persist the full @ref glossary_Trait_Set of the specification
+ *   supplied to
  *   @fqref{managerApi.ManagerInterface.register_} "register". This
  *   allows new asset types to be registered and filtered, even if they
  *   don't have a unique type within the manager's native data model.
@@ -193,8 +198,8 @@
  * This may sound counterintuitive, but the references used for
  * publishing will generally originate either from the user, or the
  * manager itself - in response to browsing for a writable target entity
- * for the appropriate @ref trait_set. Consequently, they should be
- * conceptually valid for the operation.
+ * for the appropriate @ref glossary_Trait_Set. Consequently, they
+ * should be conceptually valid for the operation.
  *
  * Hosts will include in their documentation notes on specific
  * scenarios in which they register entities with one set of traits to
