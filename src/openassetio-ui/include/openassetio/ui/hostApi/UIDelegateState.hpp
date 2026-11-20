@@ -44,7 +44,7 @@ class OPENASSETIO_UI_EXPORT UIDelegateState {
   using UpdateRequestCallback = std::function<void(std::optional<UIDelegateRequestInterfacePtr>)>;
 
   /**
-   * Constructs a new UIDelegateState wrapping a @ref manager UI
+   * Constructs a new UIDelegateState wrapping a @ref glossary_manager UI
    * delegate's implementation.
    *
    * @note Instances of this class should not be constructed directly by

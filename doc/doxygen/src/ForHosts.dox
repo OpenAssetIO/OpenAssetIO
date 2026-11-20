@@ -20,23 +20,24 @@
  *   class wraps the implementation of the API by a specific asset
  *   manager to help with state management.
  *
- * - In order to use the API, every host must provide an
- *   implementation of the @ref HostInterface class. This represents the
- *   application or tool in a generic fashion <i>to</i> the asset
- *   management system. This allows the manager to adapt its behavior
- *   if necessary.
+ * - In order to use the API, every host must provide an implementation
+ *   of the @fqref{hostApi.HostInterface} "HostInterface" class. This
+ *   represents the application or tool in a generic fashion <i>to</i>
+ *   the asset management system. This allows the manager to adapt its
+ *   behavior if necessary.
  *
- * - The specific implementation of the @ref HostInterface class
- *   provided by a host when creating a ManagerFactory is wrapped in the
+ * - The specific implementation of the
+ *   @fqref{hostApi.HostInterface} "HostInterface" class provided by a
+ *   host when creating a ManagerFactory is wrapped in the
  *   @fqref{managerApi.Host} "Host" class before being exposed to the
  *   manager. This is to allow for assorted middleware auditing/logging
  *   functionality, and provide a degree of isolation against future API
  *   changes.
  *
- * - The main currency in the interactions with a @ref manager is the
- *   @ref glossary_Entity_Reference "entity reference". These are URIs
- *   that uniquely identify an @ref glossary_entity "entity" within the
- *   management system. The form of an entity reference is entirely
+ * - The main currency in the interactions with a @ref glossary_manager
+ *   is the @ref glossary_Entity_Reference "entity reference". These are
+ *   URIs that uniquely identify an @ref glossary_entity "entity" within
+ *   the management system. The form of an entity reference is entirely
  *   determined by the manager. They must be considered to be opaque
  *   handles by the host, even if they look like well-formed strings.
  *
@@ -52,18 +53,18 @@
  *   to allow the manager to correlate and time-lock disparate API calls.
  *
  * - It's in the host's interest to provide as much information in the
- *   @ref glossary_Context "Context" and any @ref glossary_entity
- *   "entity" or @ref locale @ref Specification "Specifications"
- *   supplied to API calls as possible. For example, it is strongly
- *   advised to use or extend standard @ref locale "locales" depending
- *   on which part of a host is making API calls. This allows the
- *   manager to correctly filter assets or adapt its behavior as
- *   required.
+ *   @ref glossary_Context "Context" and any
+ *   @ref glossary_entity "entity" or @ref glossary_locale
+ *   @ref glossary_Specification "Specifications" supplied to API calls
+ *   as possible. For example, it is strongly advised to use or extend
+ *   standard @ref glossary_locale "locales" depending on which part of
+ *   a host is making API calls. This allows the manager to correctly
+ *   filter assets or adapt its behavior as required.
  *
- * - You should resolve an entity reference with the minimal set of @ref
- *   trait "traits" required, and use resulting data as the authoritative
- *   source of information about an asset. For example, to determine the
- *   final colorspace of an image.
+ * - You should resolve an entity reference with the minimal set of
+ *   @ref glossary_Trait "traits" required, and use resulting data as
+ *   the authoritative source of information about an asset. For
+ *   example, to determine the final colorspace of an image.
  *
  * - If the manager executes code from Python, then the Global
  *   Interpreter Lock (GIL) will be released before executing any C++
@@ -133,8 +134,8 @@
  *   of interactions. For example, one per document or working
  *   environment.
  *
- * - Ask the @ref manager if they support resolve for the relevant
- *   data by supplying its @ref trait_set to
+ * - Ask the @ref glossary_manager if they support resolve for the
+ *   relevant data by supplying its @ref glossary_Trait_Set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
  *   with a @ref glossary_Context "Context" with `kRead` access,
  *   respecting the returned traits - this may be a subset if the
@@ -167,8 +168,8 @@
  *   passing @fqref{hostApi.Manager.Capability.kPublishing}
  *   "kPublishing".
  *
- * - Ask the @ref manager if they support publishing for the relevant
- *   data by supplying its @ref trait_set to
+ * - Ask the @ref glossary_manager if they support publishing for the
+ *   relevant data by supplying its @ref glossary_Trait_Set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
  *   with a `kWrite` access, respecting the returned traits. Note that
  *   some managers may not be able to persist data for all of an
@@ -181,18 +182,18 @@
  *   example_publishing_a_file "here" whenever generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
- *   registered to references known to be of a different @ref trait_set.
- *   For example, an editorial application registering the traits of an
- *   ImageSpecification to a reference with the traits of a
- *   ShotSpecification indicates that the images should be published
- *   "under" that shot.
+ *   registered to references known to be of a different
+ *   @ref glossary_Trait_Set. For example, an editorial application
+ *   registering the traits of an ImageSpecification to a reference with
+ *   the traits of a ShotSpecification indicates that the images should
+ *   be published "under" that shot.
  *
  * @see @ref example_publishing_a_file
  *
  * @subsection host_todo_recommended Recommended
  *
  * - Present users with the ability to enable and select a @ref
- *   manager to use to interact with an @ref
+ *   glossary_manager to use to interact with an @ref
  *   glossary_Asset_Management_System "Asset Management System", storing
  *   applicable options, etc...
  *
@@ -207,8 +208,8 @@
  *   "managementPolicy" sets the WantsThumbnail trait, where possible,
  *   generate thumbnails as requested during publishing.
  *
- * - Create @ref Specification "specifications" for any custom 'asset
- *   types' you may deal with.
+ * - Create @ref glossary_Specification "specifications" for any custom
+ *   'asset types' you may deal with.
  *
  * @see @ref example_generating_a_thumbnail
  */

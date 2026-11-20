@@ -12,7 +12,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * EntityReference forms a strongly typed wrapper around arbitrary
- * strings to ensure they have been validated by the target @ref manager
+ * strings to ensure they have been validated by the target @ref glossary_manager
  * before being used as an @ref glossary_Entity_Reference
  * "entity reference" in the various entity related API calls.
  *

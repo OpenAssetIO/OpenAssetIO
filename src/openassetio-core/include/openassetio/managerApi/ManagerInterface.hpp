@@ -114,7 +114,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * to your implementation of the ManagerInterface. You can use this to
  * determine which calls may be part of a specific 'action' in the same
  * host, or logically grouped processes such as a batch render. This
- * should allow you to implement stable resolution of @ref meta_version
+ * should allow you to implement stable resolution of @ref glossary_Meta_version
  * "meta-versions" or other resolve-time concepts.
  *
  * There should be no persistent state in the implementation, concepts
@@ -277,7 +277,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
     kManagementPolicyQueries = internal::capability::manager::Capability::kManagementPolicyQueries,
 
     /**
-     * Manager can be queried for the @ref trait "traits" of a given
+     * Manager can be queried for the @ref glossary_Trait "traits" of a given
      * entity.
      *
      * @warning Support for this capability is required by all managers.
@@ -320,7 +320,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
     kCustomTerminology = internal::capability::manager::Capability::kCustomTerminology,
     /**
      * Manager is capable of resolving @ref glossary_Entity_Reference
-     * "entity reference" into the data for one or more @ref trait
+     * "entity reference" into the data for one or more @ref glossary_Trait
      * "traits",
      *
      * This capability means the manager implements the following
@@ -361,7 +361,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
     /**
      * Manager may be capable of a providing an @ref EntityReference
      * considered to be a sensible default for a particular @ref
-     * trait_set "trait set".
+     * glossary_Trait_Set "trait set".
      *
      * This capability means the manager implements the following
      * methods:
@@ -575,7 +575,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * for this situation).
    *
    * This method must return a @fqref{trait.TraitsData} "TraitsData" for
-   * each requested @ref trait_set. The implementation of this method
+   * each requested @ref glossary_Trait_Set. The implementation of this method
    * should carefully consider the given @fqref{access.PolicyAccess}
    * "access", and imbue suitable traits in the result to define:
    *
@@ -590,7 +590,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *   properties the manager can @ref resolve from existing entities.
    * - @ref access.PolicyAccess.kWrite "kWrite" and @ref
    *   access.PolicyAccess.kCreateRelated "kCreateRelated": traits that
-   *   have properties the manager can persist when @ref publish
+   *   have properties the manager can persist when @ref glossary_publish
    *   "publishing".
    * - @ref access.PolicyAccess.kRequired "kRequired": traits whose
    *   properties must be provided by the host in order for publishing
@@ -604,7 +604,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * Entity management is an opt-in mechanism, and returning an empty
    * TraitsData states that you do not manage data with that specific
-   * @ref trait_set, and hosts should avoid making redundant calls into
+   * @ref glossary_Trait_Set, and hosts should avoid making redundant calls into
    * the API or presenting asset-centric elements of a workflow to the
    * user.
    *
@@ -628,7 +628,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * access to determine if resolution and publishing features are
    * applicable to this implementation.
    *
-   * @param traitSets The entity @ref trait "traits" to query.
+   * @param traitSets The entity @ref glossary_Trait "traits" to query.
    *
    * @param policyAccess Type of operation that the host would like to
    * perform on entities of the type given in @p traitSets.
@@ -667,7 +667,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Because the @ref ManagerInterface is effectively state-less. To
    * simplify error handling, and allow an implementation to know which
    * interactions are related, this API supports the concept of a @ref
-   * manager_state object. This is contained in every @ref
+   * glossary_Manager_State object. This is contained in every @ref
    * glossary_Context "Context" and passed to relevant calls.
    *
    * This mechanism may be used for a variety of purposes. For example,
@@ -970,7 +970,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
 
   /**
-   * Provides the host with the @ref trait_set of one or more @ref
+   * Provides the host with the @ref glossary_Trait_Set of one or more @ref
    * glossary_entity "entities".
    *
    * For example, a host may use this to validate that a user-provided
@@ -1016,7 +1016,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param successCallback Callback that must be called for each trait
    * set retrieved for the entity references. It should be given the
    * corresponding index of the entity reference in @p entityReferences
-   * along with its @ref trait_set. The callback must be called on the
+   * along with its @ref glossary_Trait_Set. The callback must be called on the
    * same thread that initiated the call to `entityTraits`.
    *
    * @param errorCallback Callback that must be called for each failure.
@@ -1047,7 +1047,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * The concept of resolution is turning an @ref
    * glossary_Entity_Reference "entity reference" into the data for one
-   * or more @ref trait "traits" that are meaningful to the situation.
+   * or more @ref glossary_Trait "traits" that are meaningful to the situation.
    * It could be a color space, a directory, a script or a frame range
    * for an image sequence.
    *
@@ -1077,7 +1077,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * and are capable of resolving data for here.
    *
    * The @ref entityTraits method may be called by hosts to determine
-   * the @ref trait_set of an entity. It is not necessary to be able to
+   * the @ref glossary_Trait_Set of an entity. It is not necessary to be able to
    * resolve the properties for all of an entity's traits - they may be
    * used solely to aid classification. See docs for @ref entityTraits
    * for more information.
@@ -1161,7 +1161,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for each of the given @ref trait_set "trait sets"
+   * sensible default for each of the given @ref glossary_Trait_Set "trait sets"
    * and context.
    *
    * This can be used to ensure dialogs, prompts or publish locations
@@ -1171,7 +1171,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * situation.
    *
    * For example, a host may request the default ref for the @ref
-   * trait_set of a 'ShotSpecification' with access 'kWrite'.
+   * glossary_Trait_Set of a 'ShotSpecification' with access 'kWrite'.
    * If the Manager has some concept of the 'current sequence' it may
    * wish to return this so that a 'Create Shots' action starts
    * somewhere meaningful.
@@ -1416,7 +1416,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
    *
-   * @note The @ref trait_set of any queried relationship can be passed
+   * @note The @ref glossary_Trait_Set of any queried relationship can be passed
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    *
@@ -1456,7 +1456,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * time. How this reference is determined is beyond the scope of this
    * layer of the API, and functions exists in higher levels that
    * combine browsing and publishing etc... Here, we simply assert that
-   * there must be a meaningful reference given the @ref trait_set of
+   * there must be a meaningful reference given the @ref glossary_Trait_Set of
    * the entity that is being created or published.
    *
    * @note 'Meaningful' is best defined by the asset manager itself. For
@@ -1471,8 +1471,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * **2 - TraitsData**
    *
-   * The data for an entity is defined by one or more @ref trait
-   * "Traits" and their properties. The resulting @ref trait_set
+   * The data for an entity is defined by one or more @ref glossary_Trait
+   * "Traits" and their properties. The resulting @ref glossary_Trait_Set
    * defines the "type" of the entity, and the trait property values
    * hold the data for each specific entity.
    *
@@ -1496,9 +1496,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * For examples of how to correctly call these parts of the
    * API within a host, see the @ref examples page.
    *
-   * @note The term '@ref publish' is somewhat loaded. It generally
+   * @note The term '@ref glossary_publish' is somewhat loaded. It generally
    * means something different depending on who you are talking to. See
-   * the @ref publish "Glossary entry" for more on this, but to help
+   * the @ref glossary_publish "Glossary entry" for more on this, but to help
    * avoid confusion, this API provides the @ref updateTerminology
    * call, in order to allow the implementation to standardize some of
    * the language and terminology used in a Hosts presentation of the
@@ -1544,7 +1544,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * appropriate @fqref{errors.BatchElementError.ErrorCode}.
    *
    * A host may use @ref entityTraits to determine the minimal @ref
-   * trait_set required for publishing to an entity reference. Note that
+   * glossary_Trait_Set required for publishing to an entity reference. Note that
    * it is not necessary to persist the properties of all of these
    * traits, they may solely aid in classification. See @ref
    * entityTraits docs for more information.
@@ -1554,7 +1554,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * the forthcoming data to. See the notes in the API documentation for
    * the specifics of this.
    *
-   * @param traitsHints @ref trait_set for each entity,
+   * @param traitsHints @ref glossary_Trait_Set for each entity,
    * determining the type of entity to publish, complete with any
    * properties the host owns and can provide at this time. See @ref
    * glossary_preflight "glossary entry" for more information.
@@ -1644,20 +1644,20 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * information or schedule additional processes to produce
    * derivative data.
    *
-   * @warning It is a requirement of the API that the @ref trait_set of
+   * @warning It is a requirement of the API that the @ref glossary_Trait_Set of
    * the supplied TraitsData for each reference is persisted. This forms
    * the entity's 'type'. It is also a requirement that the properties
    * of any traits indicated as supported by your response to a
    * `managementPolicy` query with write access are persisted.
    *
-   * If the supplied @ref trait_set is missing required traits for any
+   * If the supplied @ref glossary_Trait_Set is missing required traits for any
    * of the provided references (maybe they are mismatched with the
    * target entity, or missing essential data) then error that element
    * with an appropriate @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCode".
    *
    * A host may use @ref entityTraits to determine the minimal @ref
-   * trait_set required for publishing to an entity reference. Note that
+   * glossary_Trait_Set required for publishing to an entity reference. Note that
    * it is not necessary to persist the properties of all of these
    * traits, they may be used solely to aid in classification. See @ref
    * entityTraits docs for more information.
