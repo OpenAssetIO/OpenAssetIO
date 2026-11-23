@@ -15,7 +15,7 @@
 #
 """
 @namespace openassetio.test.manager.harness
-A `unittest` based test harness that allows @ref manager plugin
+A `unittest` based test harness that allows @ref glossary_manager plugin
 developers to check that their implementation meets the requirements of
 the API.
 
@@ -154,7 +154,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     """
     Base test case class that all test classes must inherit from.
 
-    Expects test harness fixtures and an OpenAssetIO @ref manager to be
+    Expects test harness fixtures and an OpenAssetIO @ref glossary_manager to be
     provided, hence requires that `unittest` is provided with the custom
     ValidatorTestLoader test case loader.
 
@@ -194,10 +194,10 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         to the current test case.
 
         @param manager hostApi.Manager.Manager The OpenAssetIO
-        @ref manager to be used by test cases.
+        @ref glossary_manager to be used by test cases.
 
         @param locale @fqref{trait.TraitsData} "TraitsData" The @ref
-        locale to use by test cases.
+        glossary_locale to use by test cases.
 
         @param args `List[Any]` Additional args passed along to the
         base class.

@@ -149,7 +149,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
     kCustomTerminology = internal::capability::manager::Capability::kCustomTerminology,
     /**
      * Manager is capable of resolving @ref glossary_Entity_Reference
-     * "entity reference" into the data for one or more @ref trait
+     * "entity reference" into the data for one or more @ref glossary_Trait
      * "traits".
      *
      * This capability means the manager implements the following
@@ -191,7 +191,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
     /**
      * Manager may be capable of a providing an @ref EntityReference
      * considered to be a sensible default for a particular @ref
-     * trait_set "trait set".
+     * glossary_Trait_Set "trait set".
      *
      * This capability means the manager implements the following
      * methods:
@@ -377,12 +377,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * question is not managed by the manager, or it can't resolve a
    * required trait. Policy is runtime invariant and so only needs to be
    * checked once for any given set of inputs (which includes the
-   * @ref glossary_Context "Context" and its @ref locale).
+   * @ref glossary_Context "Context" and its @ref glossary_locale).
    *
    * When querying this API, each Trait Set should be composed of:
    *
    *  - The trait set of the entity type in question. This is usually
-   *    obtained from the relevant @ref Specification.
+   *    obtained from the relevant @ref glossary_Specification.
    *  - For @fqref{access.PolicyAccess.kRead} "read" usage, any
    *    additional traits with properties that you wish to resolve for
    *    that type of entity.
@@ -402,7 +402,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *   properties the manager can @ref resolve from existing entities.
    * - @ref access.PolicyAccess.kWrite "kWrite" and @ref
    *   access.PolicyAccess.kCreateRelated "kCreateRelated": traits that
-   *   have properties the manager can persist when @ref publish
+   *   have properties the manager can persist when @ref glossary_publish
    *   "publishing".
    * - @ref access.PolicyAccess.kRequired "kRequired": traits whose
    *   properties must be provided by the host in order for publishing
@@ -435,7 +435,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * such information enables high-level behavioural changes or
    * optimisations that improve user experience.
    *
-   * @param traitSets The entity @ref trait "traits" to query.
+   * @param traitSets The entity @ref glossary_Trait "traits" to query.
    *
    * @param policyAccess Intended operation type to perform on entities.
    *
@@ -459,7 +459,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * -->access::PolicyAccess, const ContextConstPtr&) "batch overload"
    * documentation for more details.
    *
-   * @param traitSet The entity @ref trait "traits" to query.
+   * @param traitSet The entity @ref glossary_Trait "traits" to query.
    *
    * @param policyAccess Intended operation type to perform on entities.
    *
@@ -616,8 +616,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
     /**
      * Exception policy overloads, when used in a batch context, will
      * emit an exception at the first encountered @ref
-     * errors.BatchElementError provided by the @ref ManagerInterface.
-     * This exception may not be in index order.
+     * errors.BatchElementError provided by the
+     * @fqref{managerApi.ManagerInterface} "ManagerInterface". This
+     * exception may not be in index order.
      */
     struct Exception {};
 
@@ -807,7 +808,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * details.
    *
    * Errors that occur will be thrown as an exception, either from the
-   * @ref manager plugin (for errors not specific to the entity
+   * @ref glossary_manager plugin (for errors not specific to the entity
    * reference) or as a @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
@@ -903,7 +904,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback overload" for more details on existence check behaviour.
    *
    * Any errors that occur will be immediately thrown as an exception,
-   * either from the @ref manager plugin (for errors not specific to the
+   * either from the @ref glossary_manager plugin (for errors not specific to the
    * entity reference) or as a @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
@@ -982,7 +983,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
 
   /**
-   * Retrieve the @ref trait_set of one or more @ref glossary_entity
+   * Retrieve the @ref glossary_Trait_Set of one or more @ref glossary_entity
    * "entities".
    *
    * For example, this may be used to validate that a user-provided
@@ -1026,7 +1027,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param successCallback Callback that will be called for each trait
    * set retrieved for the entity references. It will be given the
    * corresponding index of the entity reference in @p entityReferences
-   * along with its @ref trait_set. The callback will be called on the
+   * along with its @ref glossary_Trait_Set. The callback will be called on the
    * same thread that initiated the call to `entityTraits`.
    *
    * @param errorCallback Callback that will be called for each failure.
@@ -1043,7 +1044,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                     const BatchElementErrorCallback& errorCallback);
 
   /**
-   * Retrieve the @ref trait_set of an @ref glossary_entity "entity".
+   * Retrieve the @ref glossary_Trait_Set of an @ref glossary_entity "entity".
    *
    * See documentation for the <!--
    * --> @ref entityTraits(const EntityReferences&, <!--
@@ -1053,7 +1054,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on resolution behaviour.
    *
    * Errors that occur will be thrown as an exception, either from the
-   * @ref manager plugin (for errors not specific to the entity
+   * @ref glossary_manager plugin (for errors not specific to the entity
    * reference) or as a @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
@@ -1079,7 +1080,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                                const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Provides either a populated @ref trait_set or a
+   * Provides either a populated @ref glossary_Trait_Set or a
    * @fqref{errors.BatchElementError} "BatchElementError".
    *
    * If successful, the result is populated with the trait set of the
@@ -1117,7 +1118,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
-   * Retrieve the @ref trait_set of one or more @ref glossary_entity
+   * Retrieve the @ref glossary_Trait_Set of one or more @ref glossary_entity
    * "entities".
    *
    * See documentation for the <!--
@@ -1128,7 +1129,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on resolution behaviour.
    *
    * Any errors that occur will be immediately thrown as an exception,
-   * either from the @ref manager plugin (for errors not specific to the
+   * either from the @ref glossary_manager plugin (for errors not specific to the
    * entity reference) or as a @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
@@ -1154,7 +1155,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Provides either a populated @ref trait_set or a
+   * Provides either a populated @ref glossary_Trait_Set or a
    * @fqref{errors.BatchElementError} "BatchElementError" for each given
    * @ref glossary_Entity_Reference "entity reference".
    *
@@ -1201,7 +1202,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * The concept of resolution is turning an @ref
    * glossary_Entity_Reference "entity reference" into the data for one
-   * or more @ref trait "traits" that are meaningful to the situation.
+   * or more @ref glossary_Trait "traits" that are meaningful to the situation.
    * It could be a color space, a directory, a script or a frame range
    * for an image sequence.
    *
@@ -1232,7 +1233,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "Context" to determine which specific traits any given manager
    * supports resolving property data for.
    *
-   * To determine the @ref trait_set for a particular entity, use @ref
+   * To determine the @ref glossary_Trait_Set for a particular entity, use @ref
    * entityTraits. Note that this will give a complete trait set,
    * including traits that solely aid classification and whose
    * properties cannot be resolved. See the docs for @ref entityTraits
@@ -1317,7 +1318,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on resolution behaviour.
    *
    * Errors that occur during resolution will be thrown as an exception,
-   * either from the @ref manager plugin (for errors not specific to the
+   * either from the @ref glossary_manager plugin (for errors not specific to the
    * entity reference) or as a @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
@@ -1416,7 +1417,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on resolution behaviour.
    *
    * Any errors that occur during resolution will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the entity reference) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -1512,7 +1513,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for each of the given entity @ref trait_set
+   * sensible default for each of the given entity @ref glossary_Trait_Set
    * "trait sets" and context.
    *
    * This can be used to ensure dialogs, prompts or publish locations
@@ -1568,7 +1569,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for the given entity @ref trait_set
+   * sensible default for the given entity @ref glossary_Trait_Set
    * "trait set" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
@@ -1579,7 +1580,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback signature" for more details on default entity behaviour.
    *
    * Any errors that occur during the query will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the default entity query) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -1616,7 +1617,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for the given entity @ref trait_set
+   * sensible default for the given entity @ref glossary_Trait_Set
    * "trait set" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
@@ -1664,7 +1665,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for each of the given entity @ref trait_set
+   * sensible default for each of the given entity @ref glossary_Trait_Set
    * "trait sets" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
@@ -1675,7 +1676,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback signature" for more details on default entity behaviour.
    *
    * Any errors that occur during the query will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the default entity query) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -1712,7 +1713,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Called to determine an @ref EntityReference considered to be a
-   * sensible default for each of the given entity @ref trait_set
+   * sensible default for each of the given entity @ref glossary_Trait_Set
    * "trait sets" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
@@ -1899,7 +1900,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on relationship behaviour.
    *
    * Any errors that occur during the query will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the entity relationship) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2025,7 +2026,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on relationship behaviour.
    *
    * Any errors that occur during the query will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the entity relationship) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2194,7 +2195,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
    *
-   * @note The @ref trait_set of any queried relationship can be passed
+   * @note The @ref glossary_Trait_Set of any queried relationship can be passed
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    *
@@ -2230,7 +2231,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on relationship behaviour.
    *
    * Any errors that occur during the query will be immediately thrown
-   * as an exception, either from the @ref manager plugin (for errors
+   * as an exception, either from the @ref glossary_manager plugin (for errors
    * not specific to the entity relationship) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2383,8 +2384,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * **2 - TraitsData**
    *
-   * The data for an entity is defined by one or more @ref trait
-   * "traits" and their properties. The resulting @ref trait_set defines
+   * The data for an entity is defined by one or more @ref glossary_Trait
+   * "traits" and their properties. The resulting @ref glossary_Trait_Set defines
    * the "type" of the entity, and the trait property values hold the
    * data for each specific entity.
    *
@@ -2408,9 +2409,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * For examples of how to correctly call these parts of the API, see
    * the @ref examples page.
    *
-   * @note The term '@ref publish' is somewhat loaded. It generally
+   * @note The term '@ref glossary_publish' is somewhat loaded. It generally
    * means something different depending on who you are talking to. See
-   * the @ref publish "Glossary entry" for more on this, but to help
+   * the @ref glossary_publish "Glossary entry" for more on this, but to help
    * avoid confusion, this API provides the @ref updateTerminology
    * call, in order to allow the Manager to standardize some of the
    * language and terminology used in your presentation of the asset
@@ -2456,7 +2457,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * glossary_preflight "glossary entry" for details.
    *
    * The @ref entityTraits method may be used to determine the minimal
-   * @ref trait_set required for publishing. Note that the manager may
+   * @ref glossary_Trait_Set required for publishing. Note that the manager may
    * not persist all trait properties in the given set, they may be
    * required solely for classification. See @ref entityTraits docs for
    * more information.
@@ -2470,7 +2471,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitsHints @ref trait_set for each entity, determining the
+   * @param traitsHints @ref glossary_Trait_Set for each entity, determining the
    * type of entity to publish, complete with any properties the host
    * owns and can provide at this time. See @ref glossary_preflight
    * "glossary entry" for details.
@@ -2525,7 +2526,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on preflight behaviour.
    *
    * Any errors that occur during the preflight call will be immediately
-   * thrown as an exception, either from the @ref manager plugin (for
+   * thrown as an exception, either from the @ref glossary_manager plugin (for
    * errors not specific to the entity reference) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2533,7 +2534,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param entityReference The entity reference to preflight prior
    * to registration.
    *
-   * @param traitsHint @ref trait_set for the entity,
+   * @param traitsHint @ref glossary_Trait_Set for the entity,
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
@@ -2590,7 +2591,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param entityReference The entity reference to preflight prior
    * to registration.
    *
-   * @param traitsHint @ref trait_set for the entity,
+   * @param traitsHint @ref glossary_Trait_Set for the entity,
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
@@ -2634,7 +2635,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on preflight behaviour.
    *
    * Any errors that occur during the preflight call will be immediately
-   * thrown as an exception, either from the @ref manager plugin (for
+   * thrown as an exception, either from the @ref glossary_manager plugin (for
    * errors not specific to an entity reference) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2642,7 +2643,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitsHints @ref trait_set for each entity,
+   * @param traitsHints @ref glossary_Trait_Set for each entity,
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
@@ -2702,7 +2703,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitsHints @ref trait_set for each entity,
+   * @param traitsHints @ref glossary_Trait_Set for each entity,
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
@@ -2756,11 +2757,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * managementPolicy response may be a subset of the trait set you
    * requested. This means that when data is registered, only property
    * values for those specific traits will be persisted, the rest will
-   * be ignored. The full @ref trait_set will always be stored though,
+   * be ignored. The full @ref glossary_Trait_Set will always be stored though,
    * to facilitate future identification.
    *
    * The @ref entityTraits method may be used to determine the minimal
-   * @ref trait_set required for publishing. Note that the manager may
+   * @ref glossary_Trait_Set required for publishing. Note that the manager may
    * not persist all trait properties in the given set, they may be
    * required solely for classification. See @ref entityTraits docs for
    * more information.
@@ -2860,7 +2861,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on register_ behaviour.
    *
    * Any errors that occur during the register_ call will be immediately
-   * thrown as an exception, either from the @ref manager plugin (for
+   * thrown as an exception, either from the @ref glossary_manager plugin (for
    * errors not specific to the entity reference) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
@@ -2967,7 +2968,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "callback variation" for more details on register_ behaviour.
    *
    * Any errors that occur during the register_ call will be immediately
-   * thrown as an exception, either from the @ref manager plugin (for
+   * thrown as an exception, either from the @ref glossary_manager plugin (for
    * errors not specific to the entity reference) or as a
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.

@@ -16,10 +16,10 @@ OPENASSETIO_DECLARE_PTR(Context)
 
 /**
  * The Context object is used to convey information about the calling
- * environment to a @ref manager.
+ * environment to a @ref glossary_manager.
  *
  * It holds additional information about the @ref glossary_host "host"
- * that may be useful to the @ref manager. Optionally, it holds
+ * that may be useful to the @ref glossary_manager. Optionally, it holds
  * arbitrary, opaque (to the host), serializable manager state, which
  * can be used by the manager plugin to tie together related calls.
  *
@@ -41,9 +41,9 @@ class OPENASSETIO_CORE_EXPORT Context final {
   OPENASSETIO_ALIAS_PTR(Context)
 
   /**
-   * In many situations, the @ref trait_set of the desired @ref
+   * In many situations, the @ref glossary_Trait_Set of the desired @ref
    * glossary_entity "entity" itself is not entirely sufficient
-   * information to realize many functions that a @ref manager wishes to
+   * information to realize many functions that a @ref glossary_manager wishes to
    * implement. For example, when determining the final file path for an
    * Image that is about to be published - knowing it came from a render
    * catalog, rather than a 'Write node' from a comp tree could result
@@ -58,7 +58,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
   trait::TraitsDataPtr locale;
 
   /**
-   * The opaque state token owned by the @ref manager, used to
+   * The opaque state token owned by the @ref glossary_manager, used to
    * correlate all API calls made using this context.
    *
    * @see @ref stable_resolution

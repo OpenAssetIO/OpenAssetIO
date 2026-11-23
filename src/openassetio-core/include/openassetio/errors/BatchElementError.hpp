@@ -20,7 +20,7 @@ namespace errors {
  * Structure representing per-element batch operation errors.
  *
  * Many OpenAssetIO API functions take multiple inputs, i.e. a batch of
- * elements, in order to allow the @ref manager backend to optimise bulk
+ * elements, in order to allow the @ref glossary_manager backend to optimise bulk
  * queries. The results of such queries are usually returned
  * element-by-element via a callback.
  *

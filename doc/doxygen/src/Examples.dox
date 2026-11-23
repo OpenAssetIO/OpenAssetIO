@@ -1,12 +1,12 @@
 /*!
  * @page examples Examples
  *
- * @note This section is a work-in-progress. Over time we will add
- * flow diagrams for key operations that happen through the API, along
- * with more extensive sample implementations for both @ref
- * glossary_host "hosts" and @ref manager "managers". Currently it is
- * limited to illustrating a few common operations that a host of
- * the API may perform.
+ * @note This section is a work-in-progress. Over time we will add flow
+ * diagrams for key operations that happen through the API, along with
+ * more extensive sample implementations for both
+ * @ref glossary_host "hosts" and @ref glossary_manager "managers".
+ * Currently it is limited to illustrating a few common operations that
+ * a host of the API may perform.
  *
  * @warning At this stage, until we ship a sample manager
  * implementation, the code for later examples won't actually function.
@@ -74,7 +74,7 @@
  * to construct and configure a specific manager (it assumes that some
  * example @ref glossary_Asset_Management_System
  * "Asset Management System" has a plugin, installed on
- * @ref plugin_path_var).
+ * @ref glossary_plugin_path_var).
  *
  * Check out <a style="font-weight:bold" href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
  * target="_blank">Python Manager Template</a> for an example
@@ -119,7 +119,7 @@
  *
  * To make it easier to deploy a range of OpenAssetIO enabled hosts, the
  * API supports a simple file-based configuration mechanism. Users set
- * the @ref default_config_var environment variable to
+ * the @ref glossary_default_config_var environment variable to
  * point to a suitable TOML file, which contains their preferred manager
  * identifier and settings. As a Host, you can use the
  * @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
@@ -136,7 +136,7 @@
  *
  * This example shows how to use the instantiated manager to resolve a
  * string (`some_string`) that is assumed to be an entity reference to
- * an entity with the `LocatableContent` @ref trait (from the
+ * an entity with the `LocatableContent` @ref glossary_Trait (from the
  * MediaCreation package) covering use of the correct context.
  *
  * @note The caller must convert a string to an @fqref{EntityReference}
@@ -254,7 +254,7 @@
  *
  * - Managers may not support a particular workflow at all.
  * - Managers may not handle certain types of entity (determined by
- *   their @ref trait_set).
+ *   their @ref glossary_Trait_Set).
  * - Managers may not be able to provide data for all traits.
  *
  * @subsection Manager Capabilities
@@ -439,10 +439,10 @@
  *
  * @section example_generating_a_thumbnail Generating a Thumbnail During Publish
  *
- * This example demonstrates the correct handling in a @ref
- * glossary_host "host" of a hypothetical WantsThumbnail trait if set by
- * a @ref manager in its @fqref{hostApi.Manager.managementPolicy}
- * "managementPolicy" response.
+ * This example demonstrates the correct handling in a
+ * @ref glossary_host "host" of a hypothetical WantsThumbnail trait if
+ * set by a @ref glossary_manager in its
+ * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.
  *

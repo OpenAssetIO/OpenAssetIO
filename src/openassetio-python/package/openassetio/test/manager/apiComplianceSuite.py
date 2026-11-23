@@ -23,7 +23,7 @@ requirements of the API, and can handle all documented calling patterns.
 For example, that when a @fqref{managerApi.ManagerInterface.managementPolicy}
 "managementPolicy" query returns a non-ignored state, that there are no
 errors calling the other required methods for a managed entity with
-those @ref trait "traits".
+those @ref glossary_Trait "traits".
 
 The suite does not validate any specific business logic by checking the
 values API methods _may_ return in certain situations. This should be

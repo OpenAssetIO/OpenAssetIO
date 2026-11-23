@@ -19,7 +19,7 @@ OPENASSETIO_DECLARE_PTR(Host)
 /**
  * The Host object represents the tool or application that created a
  * session with OpenAssetIO, and wants to query or store information
- * within a @ref manager.
+ * within a @ref glossary_manager.
  *
  * The Host provides a generalised API to query the identity of the
  * caller of the API. In the future, this interface may be extended to
