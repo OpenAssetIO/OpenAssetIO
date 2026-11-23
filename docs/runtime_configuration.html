@@ -114,8 +114,8 @@ Overview</h1>
 <div align="center">
 <img src="inline_umlgraph_1.png" />
 </div>
-<p>An OpenAssetIO enabled tool or application is known as a <a class="el" href="glossary.html#glossary_host">Host</a> (as it "hosts" the API). Through the use of manager plugins, OpenAssetIO allows the host to communicate with one or more <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management Systems</a>, called <a class="el" href="glossary.html#manager">Managers</a>.</p>
-<p>This page covers hows to configure OpenAssetIO so that the hosts you use (e.g. <a class="el" href="glossary.html#glossary_DCC">DCC tools</a>, applications and other scripts) use a specific manager of your choice to <a class="el" href="glossary.html#glossary_resolve">resolve</a> and potentially <a class="el" href="glossary.html#publish">publish</a> data.</p>
+<p>An OpenAssetIO enabled tool or application is known as a <a class="el" href="glossary.html#glossary_host">Host</a> (as it "hosts" the API). Through the use of manager plugins, OpenAssetIO allows the host to communicate with one or more <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management Systems</a>, called <a class="el" href="glossary.html#glossary_manager">Managers</a>.</p>
+<p>This page covers hows to configure OpenAssetIO so that the hosts you use (e.g. <a class="el" href="glossary.html#glossary_DCC">DCC tools</a>, applications and other scripts) use a specific manager of your choice to <a class="el" href="glossary.html#glossary_resolve">resolve</a> and potentially <a class="el" href="glossary.html#glossary_publish">publish</a> data.</p>
 <p>OpenAssetIO itself is usually built into any host that supports it, this means you don't normally need do to anything to ensure the API itself is present. The most common tasks in configuration are:</p>
 <ul>
 <li>Installing manager plugins and making them available to a host.</li>
@@ -134,16 +134,16 @@ Using pip</h2>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;python -m pip install &lt;path/to/src&gt;</div></div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>Many hosts use their own embedded Python interpreter. You may need to consult the relevant documentation to determine its location, version, <code>sys.path</code> etc. and adjust the invocation of <code>python</code> accordingly, so that the plugin is installed to the correct Python instance.</dd></dl>
 <h2><a class="anchor" id="installing_manager_plugins_manual"></a>
 Manual installation</h2>
-<p>The OpenAssetIO plugin system can also be explicitly configured to look in specific locations. The <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> environment variable can be set to point to one or more directories containing manager plugins.</p>
+<p>The OpenAssetIO plugin system can also be explicitly configured to look in specific locations. The <a class="el" href="glossary.html#glossary_plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> environment variable can be set to point to one or more directories containing manager plugins.</p>
 <p>This is required for C++ plugins, but can be used for Python plugins as well, where entry point discovery (described above) is not available.</p>
-<p>It is a standard 'left-most wins' search-path, that uses platform specific delimiters (see <a class="el" href="glossary.html#plugin_path_var">here</a> for more information).</p>
+<p>It is a standard 'left-most wins' search-path, that uses platform specific delimiters (see <a class="el" href="glossary.html#glossary_plugin_path_var">here</a> for more information).</p>
 <p>This variable is completely independent from <code>$PYTHONPATH</code>, <code>$LD_LIBRARY_PATH</code>, or any other language/host specific configuration.</p>
 <p>This can simplify deployment by allowing a common location to be specified to, for example, service multiple hosts and Python versions (assuming the manager plugins have been suitably coded).</p>
 <p>To install a plugin using this approach:</p>
 <ul>
 <li>Download or otherwise obtain the required manager plugin.</li>
 <li>Place this in your chosen location. This can be anywhere on a filesystem that is visible to the hosts that you wish to use.</li>
-<li>Set, or extend <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> to include this location.</li>
+<li>Set, or extend <a class="el" href="glossary.html#glossary_plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> to include this location.</li>
 </ul>
 <h2><a class="anchor" id="installing_manager_plugins_hybrid"></a>
 Hybrid plugins</h2>
@@ -164,17 +164,17 @@ Host configuration</h1>
 <p>Advanced hosts with specific workflows may require configuring by other means - please consult the relevant host provided documentation in these cases.</p>
 <h2><a class="anchor" id="host_default_config"></a>
 The Default Config Mechanism</h2>
-<p>You can specify your preferred manager and settings in a simple <a href="https://toml.io/en/" target="_blank">TOML</a> file, and set the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> to point to this file. Hosts should then use this configuration to setup the API at startup.</p>
+<p>You can specify your preferred manager and settings in a simple <a href="https://toml.io/en/" target="_blank">TOML</a> file, and set the <a class="el" href="glossary.html#glossary_default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> to point to this file. Hosts should then use this configuration to setup the API at startup.</p>
 <p>The format for manager-specific sections of this file is documented <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76">here</a>.</p>
 <p>To configure OpenAssetIO using this approach:</p>
 <ul>
 <li>Create a TOML file with the identifier and any settings in a location of your choosing. This can be anywhere on a filesystem that is visible to the hosts that you wish to use.</li>
-<li>Set <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> to point to that file.</li>
+<li>Set <a class="el" href="glossary.html#glossary_default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> to point to that file.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Some hosts may provide functionality to override or ignore this configuration.</dd></dl>
 <h1><a class="anchor" id="configuration_troubleshooting"></a>
 Troubleshooting</h1>
-<p>To help diagnose issues, first make sure that debug logging is enabled in your host. You usually do this by adjusting the host's native logging controls, or in some cases you may need to set <a class="el" href="glossary.html#logging_severity_var">$OPENASSETIO_LOGGING_SEVERITY</a> to <code>1</code>.</p>
+<p>To help diagnose issues, first make sure that debug logging is enabled in your host. You usually do this by adjusting the host's native logging controls, or in some cases you may need to set <a class="el" href="glossary.html#glossary_logging_severity_var">$OPENASSETIO_LOGGING_SEVERITY</a> to <code>1</code>.</p>
 <h2><a class="anchor" id="pip_plugins_missing"></a>
 Pip installed Python plugins not being found</h2>
 <ul>
@@ -186,13 +186,13 @@ Pip installed Python plugins not being found</h2>
 <h2><a class="anchor" id="manual_plugins_missing"></a>
 Manually installed plugins not being found</h2>
 <ul>
-<li>Check <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> includes the directory in which the desired plugins reside.</li>
+<li>Check <a class="el" href="glossary.html#glossary_plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> includes the directory in which the desired plugins reside.</li>
 <li>Check any messages logged by the plugin system during startup.</li>
 </ul>
 <h2><a class="anchor" id="default_config_not_working"></a>
 Default config mechanism not working</h2>
 <ul>
-<li>Check <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> points to the file using a valid path for the operating system in question.</li>
+<li>Check <a class="el" href="glossary.html#glossary_default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> points to the file using a valid path for the operating system in question.</li>
 <li>Check the user has read permissions for the file.</li>
 <li>Check any messages logged by the manager factory during startup. </li>
 </ul>

@@ -518,7 +518,7 @@ Public Member Functions</h2></td></tr>
 <p>Finally, the returned state may contain a callback allowing the host to update the initial request with changes, e.g. the target selection of entities.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uiTraitsData</td><td>UI-specific <a class="el" href="glossary.html#trait">traits</a> (and their associated properties, if any) determining the kind of UI to create.</td></tr>
+    <tr><td class="paramname">uiTraitsData</td><td>UI-specific <a class="el" href="glossary.html#glossary_Trait">traits</a> (and their associated properties, if any) determining the kind of UI to create.</td></tr>
     <tr><td class="paramname">uiAccess</td><td>The host's intended usage of the output from the UI element.</td></tr>
     <tr><td class="paramname">uiRequest</td><td>The request object containing UI-specific parameters, as well as a callback hook for communicating asynchronous UI state changes.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
@@ -618,7 +618,7 @@ Public Member Functions</h2></td></tr>
 <p>This method is opt-in - hosts may call <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#a174c31f54be81d5eb4548af5603d36e3">populateUI</a> without first consulting this method. It is therefore important that correct behaviour is not reliant on this method being called. Any additional metadata offered in the returned policy may be useful in optimising the user experience, but cannot be considered a requirement.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uiTraitSet</td><td>The set of UI-specific <a class="el" href="glossary.html#trait">traits</a> determining the kind of UI element the host may wish to delegate.</td></tr>
+    <tr><td class="paramname">uiTraitSet</td><td>The set of UI-specific <a class="el" href="glossary.html#glossary_Trait">traits</a> determining the kind of UI element the host may wish to delegate.</td></tr>
     <tr><td class="paramname">uiAccess</td><td>Type of operation that the delegated UI will be used for.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>The API session.</td></tr>

@@ -171,7 +171,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base test case class that all test classes must inherit from. </p>
-<p>Expects test harness fixtures and an OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
+<p>Expects test harness fixtures and an OpenAssetIO <a class="el" href="glossary.html#glossary_manager">manager</a> to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
 <p>Fixtures, manager and a suitable locale are then provided to subclasses via protected members.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af15c8b879bc6def878c27be9f1a567b6">createTestContext</a> convenience method will create a new context pre-configured with this locale.</dd></dl>
 <p>For performance reasons, by default, all test cases will share a single instance of the manager under test. This reduces setup costs, but precludes any testing of initialization behaviour.</p>
@@ -230,8 +230,8 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fixtures</td><td><code>Dict[Any, Any]</code> Dictionary of fixtures specific to the current test case.</td></tr>
-    <tr><td class="paramname">manager</td><td>hostApi.Manager.Manager The OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be used by test cases.</td></tr>
-    <tr><td class="paramname">locale</td><td><a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> The <a class="el" href="glossary.html#locale">locale</a> to use by test cases.</td></tr>
+    <tr><td class="paramname">manager</td><td>hostApi.Manager.Manager The OpenAssetIO <a class="el" href="glossary.html#glossary_manager">manager</a> to be used by test cases.</td></tr>
+    <tr><td class="paramname">locale</td><td><a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> The <a class="el" href="glossary.html#glossary_locale">locale</a> to use by test cases.</td></tr>
     <tr><td class="paramname">args</td><td><code>List[Any]</code> Additional args passed along to the base class.</td></tr>
     <tr><td class="paramname">kwargs</td><td><code>Dict[str, Any]</code> Additional keyword args passed along to the base class. </td></tr>
   </table>

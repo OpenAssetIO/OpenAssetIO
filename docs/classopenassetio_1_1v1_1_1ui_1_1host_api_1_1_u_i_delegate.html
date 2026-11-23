@@ -521,7 +521,7 @@ This method may block for extended periods of time.</dd></dl>
 <p>Finally, the returned state may contain a callback allowing the host to update the initial request with changes, e.g. the target selection of entities.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uiTraitsData</td><td>UI-specific <a class="el" href="glossary.html#trait">traits</a> (and their associated properties, if any) determining the kind of UI to create.</td></tr>
+    <tr><td class="paramname">uiTraitsData</td><td>UI-specific <a class="el" href="glossary.html#glossary_Trait">traits</a> (and their associated properties, if any) determining the kind of UI to create.</td></tr>
     <tr><td class="paramname">uiAccess</td><td>The host's intended usage of the output from the UI element.</td></tr>
     <tr><td class="paramname">uiRequestInterface</td><td>The request object containing UI-specific parameters, as well as a callback hook for communicating asynchronous UI state changes.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
@@ -599,7 +599,7 @@ This method may block for extended periods of time.</dd></dl>
 <p>This method is opt-in - it is safe to skip this and call <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html#a705d9c334c23ac3ef24a5cd54a1b6913">populateUI</a> and deal with the response. However, constructing the arguments for <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html#a705d9c334c23ac3ef24a5cd54a1b6913">populateUI</a> may be an expensive operation, only for it to be unsupported. Also, this method may provide additional metadata useful in optimising the user experience.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uiTraitSet</td><td>The set of UI-specific <a class="el" href="glossary.html#trait">traits</a> determining the kind of UI element the host may wish to delegate.</td></tr>
+    <tr><td class="paramname">uiTraitSet</td><td>The set of UI-specific <a class="el" href="glossary.html#glossary_Trait">traits</a> determining the kind of UI element the host may wish to delegate.</td></tr>
     <tr><td class="paramname">uiAccess</td><td>Type of operation that the delegated UI will be used for.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
   </table>
