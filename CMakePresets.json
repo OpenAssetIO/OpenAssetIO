@@ -66,11 +66,16 @@
       "name": "setuptools",
       "displayName": "Python setuptools setup.py",
       "description": "Settings for building Python extension module consumed by setuptools",
+      "binaryDir":"${sourceDir}/build/setuptools",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_INSTALL_BINDIR": "openassetio",
         "CMAKE_INSTALL_LIBDIR": "openassetio",
-        "OPENASSETIO_PYTHON_SITEDIR": "."
+        "CMAKE_INSTALL_INCLUDEDIR": "openassetio/include",
+        "OPENASSETIO_PYTHON_SITEDIR": ".",
+        "BUILD_SHARED_LIBS": "ON",
+        "OPENASSETIO_ENABLE_C":"OFF",
+        "OPENASSETIO_ENABLE_TESTS":"OFF"
       }
     },
     {
